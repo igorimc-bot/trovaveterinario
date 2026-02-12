@@ -4,7 +4,9 @@
 SET NAMES utf8mb4;
 
 -- Svuota la tabella servizi esistente
+SET FOREIGN_KEY_CHECKS = 0;
 TRUNCATE TABLE `servizi`;
+SET FOREIGN_KEY_CHECKS = 1;
 
 -- Inserisci i nuovi servizi veterinari
 -- Assumo la struttura basata su migrate_services.php: id, nome, slug, descrizione_brevi, prezzo, features, ...
