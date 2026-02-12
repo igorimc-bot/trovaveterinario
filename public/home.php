@@ -1,7 +1,7 @@
 <?php
 /**
  * Homepage
- * Main landing page for Aste Giudiziarie 24
+ * Main landing page for Trova Veterinario
  */
 
 require_once __DIR__ . '/../includes/config.php';
@@ -9,26 +9,24 @@ require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/functions.php';
 
 // SEO Meta
-$metaTitle = getSetting('site_name', 'Aste Giudiziarie 24') . ' - ' . getSetting('site_tagline', 'Assistenza Completa per Aste in Italia');
-$metaDescription = 'Assistenza completa per aste giudiziarie e fallimentari in Italia. Consulenza gratuita, supporto legale, perizie. Auto, case, barche, immobili all\'asta. Trova le migliori opportunità.';
+$metaTitle = getSetting('site_name', 'Trova Veterinario') . ' - ' . getSetting('site_tagline', 'La salute del tuo animale al primo posto');
+$metaDescription = 'Trova il veterinario giusto per il tuo animale. Specialisti in cani, gatti, rettili, uccelli e animali da fattoria. Pronto soccorso e visite specialistiche.';
 $canonical = APP_URL;
 
 // Schema Markup - Organization
 $schemaMarkup = [
     '@context' => 'https://schema.org',
-    '@type' => 'ProfessionalService',
-    'name' => 'Aste Giudiziarie 24',
-    'description' => 'Assistenza completa per aste giudiziarie e fallimentari in Italia',
+    '@type' => 'MedicalOrganization',
+    'name' => 'Trova Veterinario',
+    'description' => 'Servizio di ricerca veterinari in Italia',
     'url' => APP_URL,
     'areaServed' => [
         '@type' => 'Country',
         'name' => 'Italia'
     ],
-    'serviceType' => [
-        'Consulenza Aste Giudiziarie',
-        'Assistenza Aste Fallimentari',
-        'Perizie Immobiliari',
-        'Assistenza Legale Aste'
+    'medicalSpecialty' => [
+        'Veterinary Medicine',
+        'Emergency Veterinary Medicine'
     ]
 ];
 
@@ -52,16 +50,16 @@ include __DIR__ . '/../includes/header.php';
     <div class="hero-overlay"></div>
     <div class="container hero-container">
         <h1 class="hero-title">
-            <span class="text-highlight">Aste Giudiziarie 24</span><br>
-            Il Tuo Partner per le Aste in Italia
+            <span class="text-highlight">Trova Veterinario</span><br>
+            Il Miglior Specialista per il Tuo Amico
         </h1>
         <p class="hero-subtitle">
-            <?= getContent('hero_subtitle', 'Consulenza professionale, supporto legale e perizie per acquisti all\'asta in tutta Italia. Trova le migliori opportunità nella tua zona.') ?>
+            <?= getContent('hero_subtitle', 'Cerca e prenota visite con i migliori veterinari in tutta Italia. Cani, gatti, animali esotici e da fattoria.') ?>
         </p>
 
         <div class="hero-cta">
-            <a href="#contatti" class="btn btn-primary btn-lg">Richiedi Consulenza Gratuita</a>
-            <a href="#servizi" class="btn btn-secondary btn-lg">Scopri i Servizi</a>
+            <a href="#contatti" class="btn btn-primary btn-lg">Prenota una Visita</a>
+            <a href="#servizi" class="btn btn-secondary btn-lg">I Nostri Servizi</a>
         </div>
     </div>
 </section>
@@ -70,8 +68,8 @@ include __DIR__ . '/../includes/header.php';
 <section id="servizi" class="services-section">
     <div class="container">
         <div class="section-header text-center">
-            <h2>I Nostri Servizi</h2>
-            <p>Assistenza completa per ogni tipo di asta giudiziaria e fallimentare</p>
+            <h2>Cura e Assistenza Veterinaria</h2>
+            <p>Scegli la specializzazione di cui hai bisogno</p>
         </div>
 
         <div class="services-grid">
@@ -87,8 +85,8 @@ include __DIR__ . '/../includes/header.php';
                                     alt="<?= htmlspecialchars($s['nome']) ?>">
                             <?php else: ?>
                                 <div
-                                    style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(45deg, #e6e9f0 0%, #eef1f5 100%); color: #999; font-weight: 600; border-radius: 15px;">
-                                    Aste Giudiziarie 24
+                                    style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(45deg, #e6e9f0 0%, #eef1f5 100%); color: #666; font-weight: 600; border-radius: 15px; text-align:center; padding: 10px;">
+                                    <?= htmlspecialchars($s['nome']) ?>
                                 </div>
                             <?php endif; ?>
                         </div>
@@ -100,7 +98,7 @@ include __DIR__ . '/../includes/header.php';
 
                             <?php if (!empty($s['features'])): ?>
                                 <div class="service-features">
-                                    Features: <?= htmlspecialchars($s['features']) ?>
+                                    Include: <?= htmlspecialchars($s['features']) ?>
                                 </div>
                             <?php endif; ?>
 
@@ -109,15 +107,6 @@ include __DIR__ . '/../includes/header.php';
                             <p class="service-description">
                                 <?= htmlspecialchars($s['descrizione_breve']) ?>
                             </p>
-
-                            <?php if (!empty($s['prezzo'])): ?>
-                                <div class="service-footer">
-                                    <span class="service-price-label">Price Per Person:</span>
-                                    <span class="service-price">
-                                        $<?= number_format($s['prezzo'], 2, ',', '.') ?>
-                                    </span>
-                                </div>
-                            <?php endif; ?>
                         </div>
                     </article>
                 </a>
@@ -130,45 +119,45 @@ include __DIR__ . '/../includes/header.php';
 <section class="why-us-section">
     <div class="container">
         <div class="section-header text-center">
-            <h2>Perché Scegliere Aste Giudiziarie 24</h2>
-            <p>Affidati a professionisti del settore per un acquisto sicuro e vantaggioso</p>
+            <h2>Perché Scegliere Trova Veterinario</h2>
+            <p>La salute del tuo animale è la nostra priorità</p>
         </div>
 
         <div class="benefits-grid">
             <div class="benefit-card">
-                <div class="benefit-icon">✓</div>
-                <h3>Consulenza Gratuita</h3>
-                <p>Valutazione preliminare senza impegno per ogni richiesta.</p>
+                <div class="benefit-icon">🐾</div>
+                <h3>Specialisti Certificati</h3>
+                <p>Collaboriamo solo con veterinari qualificati e strutture d'eccellenza.</p>
             </div>
 
             <div class="benefit-card">
-                <div class="benefit-icon">👨‍⚖️</div>
-                <h3>Esperti del Settore</h3>
-                <p>Avvocati, periti e consulenti qualificati a tua disposizione.</p>
+                <div class="benefit-icon">🚑</div>
+                <h3>Pronto Soccorso</h3>
+                <p>Reperibilità per urgenze e cliniche aperte 24 ore su 24.</p>
             </div>
 
             <div class="benefit-card">
-                <div class="benefit-icon">🇮🇹</div>
-                <h3>Copertura Nazionale</h3>
-                <p>Assistenza operativa in tutte le regioni italiane.</p>
+                <div class="benefit-icon">📍</div>
+                <h3>Vicino a Te</h3>
+                <p>Trova facilmente lo studio veterinario più comodo nella tua zona.</p>
             </div>
 
             <div class="benefit-card">
-                <div class="benefit-icon">🔒</div>
-                <h3>Trasparenza Totale</h3>
-                <p>Preventivi chiari e dettagliati, nessun costo nascosto.</p>
+                <div class="benefit-icon">🔬</div>
+                <h3>Tecnologia Avanzata</h3>
+                <p>Accesso a cliniche dotate delle più moderne strumentazioni diagnostiche.</p>
             </div>
 
             <div class="benefit-card">
-                <div class="benefit-icon">📋</div>
-                <h3>Supporto Completo</h3>
-                <p>Dall'analisi dell'asta alla gestione burocratica post-acquisto.</p>
+                <div class="benefit-icon">❤️</div>
+                <h3>Amore per gli Animali</h3>
+                <p>Passione e dedizione sono al centro di ogni visita e trattamento.</p>
             </div>
 
             <div class="benefit-card">
-                <div class="benefit-icon">⚡</div>
-                <h3>Risposta Rapida</h3>
-                <p>Contatto entro 24 ore dalla tua richiesta di informazioni.</p>
+                <div class="benefit-icon">📅</div>
+                <h3>Facilità di Contatto</h3>
+                <p>Richiedi appuntamenti o preventivi in pochi click.</p>
             </div>
         </div>
     </div>
@@ -178,8 +167,8 @@ include __DIR__ . '/../includes/header.php';
 <section id="regioni" class="regions-section">
     <div class="container">
         <div class="section-header text-center">
-            <h2>Operiamo in Tutta Italia</h2>
-            <p>Seleziona la tua regione per trovare le migliori opportunità</p>
+            <h2>Veterinari in Tutta Italia</h2>
+            <p>Seleziona la tua regione per trovare gli specialisti più vicini</p>
         </div>
 
         <div class="regions-grid">
@@ -199,8 +188,8 @@ include __DIR__ . '/../includes/header.php';
 <section id="contatti" class="contact-section">
     <div class="container">
         <div class="section-header text-center">
-            <h2>Richiedi Consulenza Gratuita</h2>
-            <p>Compila il form sottostante e ti ricontatteremo entro 24 ore</p>
+            <h2>Richiedi Informazioni o Prenota</h2>
+            <p>Compila il form per essere ricontattato da uno specialista</p>
         </div>
 
         <div class="contact-form-wrapper">
@@ -218,34 +207,34 @@ include __DIR__ . '/../includes/header.php';
 
         <div class="faq-list">
             <div class="faq-item">
-                <h3 class="faq-question">Cos'è un'asta giudiziaria?</h3>
+                <h3 class="faq-question">Come trovo un veterinario esperto in esotici?</h3>
                 <div class="faq-answer">
-                    <p>Un'asta giudiziaria è una vendita pubblica di beni (immobili, veicoli, mobili) disposta
-                        dall'autorità giudiziaria nell'ambito di procedure esecutive o fallimentari.</p>
+                    <p>Utilizza la ricerca per servizio selezionando "Veterinario per Animali Esotici" o "Rettili" per
+                        visualizzare gli specialisti nella tua zona.</p>
                 </div>
             </div>
 
             <div class="faq-item">
-                <h3 class="faq-question">Quali sono i vantaggi di acquistare all'asta?</h3>
+                <h3 class="faq-question">Cosa fare in caso di emergenza notturna?</h3>
                 <div class="faq-answer">
-                    <p>I principali vantaggi sono: prezzi inferiori al mercato, trasparenza della procedura, garanzie
-                        legali, e possibilità di trovare opportunità uniche.</p>
+                    <p>Cerca il servizio "Pronto Soccorso Veterinario" per trovare cliniche con reperibilità 24/7 e
+                        servizio notturno.</p>
                 </div>
             </div>
 
             <div class="faq-item">
-                <h3 class="faq-question">Che tipo di assistenza offrite?</h3>
+                <h3 class="faq-question">Effettuate visite a domicilio?</h3>
                 <div class="faq-answer">
-                    <p>Offriamo consulenza completa: analisi dell'asta, perizie, assistenza legale, supporto per
-                        finanziamenti, e gestione post-acquisto.</p>
+                    <p>Molti veterinari nel nostro network offrono visite a domicilio, specialmente per animali da
+                        fattoria o difficili da trasportare.</p>
                 </div>
             </div>
 
             <div class="faq-item">
-                <h3 class="faq-question">La consulenza è davvero gratuita?</h3>
+                <h3 class="faq-question">È necessario l'appuntamento?</h3>
                 <div class="faq-answer">
-                    <p>Sì, la valutazione preliminare è completamente gratuita e senza impegno. Ti forniremo un
-                        preventivo dettagliato solo se decidi di procedere.</p>
+                    <p>Per le visite di routine è sempre consigliato prenotare. Per le urgenze, consigliamo di
+                        contattare telefonicamente la struttura prima di recarsi sul posto.</p>
                 </div>
             </div>
         </div>

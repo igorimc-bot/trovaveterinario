@@ -6,8 +6,8 @@ require_once __DIR__ . '/includes/functions.php';
 $pdo = db()->getConnection();
 $servizi = $pdo->query("SELECT * FROM servizi WHERE attivo = 1 ORDER BY ordine ASC, id DESC")->fetchAll(PDO::FETCH_ASSOC);
 
-$metaTitle = "I Nostri Servizi | Aste Giudiziarie 24";
-$metaDescription = "Scopri tutti i servizi offerti da Aste Giudiziarie 24. Consulenza legale, aste immobiliari, aste auto e molto altro.";
+$metaTitle = "I Nostri Servizi | Trova Veterinario";
+$metaDescription = "Scopri tutti i servizi offerti da Trova Veterinario. Consulenza legale, aste immobiliari, aste auto e molto altro.";
 
 include __DIR__ . '/includes/header.php';
 ?>
@@ -179,7 +179,7 @@ include __DIR__ . '/includes/header.php';
                             <img src="<?= htmlspecialchars($s['immagine']) ?>" alt="<?= htmlspecialchars($s['nome']) ?>">
                         <?php else: ?>
                             <div class="no-img-placeholder">
-                                Aste Giudiziarie 24
+                                Trovaveterinario
                             </div>
                         <?php endif; ?>
                     </div>

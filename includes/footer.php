@@ -4,9 +4,9 @@
     <div class="container">
         <div class="footer-content">
             <div class="footer-section">
-                <h3>Aste Giudiziarie 24</h3>
-                <p>Assistenza completa per aste giudiziarie e fallimentari in tutta Italia.</p>
-                <p>Consulenza gratuita, supporto legale, perizie professionali.</p>
+                <h3>Trova Veterinario</h3>
+                <p>Il portale numero uno in Italia per trovare il veterinario giusto per il tuo animale.</p>
+                <p>Cani, gatti, esotici e animali da fattoria.</p>
             </div>
 
             <div class="footer-section">
@@ -55,7 +55,7 @@
 
         <div class="footer-bottom">
             <p>&copy;
-                <?= date('Y') ?> Aste Giudiziarie 24. Tutti i diritti riservati.
+                <?= date('Y') ?> Trova Veterinario. Tutti i diritti riservati.
             </p>
         </div>
     </div>

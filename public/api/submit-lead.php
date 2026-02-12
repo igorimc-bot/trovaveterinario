@@ -127,7 +127,7 @@ try {
 
         sendEmail(
             ADMIN_EMAIL,
-            'Nuovo Lead - Aste Giudiziarie 24',
+            'Nuovo Lead - Trova Veterinario',
             $emailBody
         );
     }
@@ -140,12 +140,12 @@ try {
             <p>Abbiamo ricevuto la tua richiesta e ti ricontatteremo entro 24 ore.</p>
             <p>Il nostro team di esperti è a tua disposizione per fornirti la migliore assistenza.</p>
             <br>
-            <p>Cordiali saluti,<br>Il Team di Aste Giudiziarie 24</p>
+            <p>Cordiali saluti,<br>Il Team di Trova Veterinario</p>
         ";
 
         sendEmail(
             $email,
-            'Conferma Ricezione Richiesta - Aste Giudiziarie 24',
+            'Conferma Ricezione Richiesta - Trova Veterinario',
             $emailBody
         );
     }

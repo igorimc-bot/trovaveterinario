@@ -8,7 +8,7 @@ require_once __DIR__ . '/../includes/config.php';
 require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/functions.php';
 
-$metaTitle = 'Pubblicità - Diventa Partner | Aste Giudiziarie 24';
+$metaTitle = 'Pubblicità - Diventa Partner | Trova Veterinario';
 $metaDescription = 'Sei un professionista del settore aste? Avvocato, perito, consulente? Entra nel nostro network e ricevi lead qualificati.';
 $canonical = APP_URL . '/pubblicita';
 
@@ -18,7 +18,7 @@ include __DIR__ . '/../includes/header.php';
 <section class="hero hero-small">
     <div class="hero-overlay"></div>
     <div class="container hero-container">
-        <h1 class="hero-title">Diventa Partner di Aste Giudiziarie 24</h1>
+        <h1 class="hero-title">Diventa Partner di Trova Veterinario</h1>
         <p class="hero-subtitle">Entra nel nostro network di professionisti e ricevi lead qualificati nella tua zona</p>
     </div>
 </section>

@@ -83,7 +83,7 @@ try {
 
     sendEmail(
         ADMIN_EMAIL,
-        'Nuova Richiesta Partnership - Aste Giudiziarie 24',
+        'Nuova Richiesta Partnership - Trova Veterinario',
         $emailBody
     );
 

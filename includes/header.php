@@ -43,14 +43,14 @@
             <?= htmlspecialchars($metaTitle) ?>
         </title>
     <?php else: ?>
-        <title>Aste Giudiziarie 24 - Assistenza Completa per Aste in Italia</title>
+        <title>Trova Veterinario - Il tuo riferimento per la salute animale</title>
     <?php endif; ?>
 
     <?php if (isset($metaDescription)): ?>
         <meta name="description" content="<?= htmlspecialchars($metaDescription) ?>">
     <?php else: ?>
         <meta name="description"
-            content="Assistenza completa per aste giudiziarie e fallimentari in Italia. Consulenza gratuita, supporto legale, perizie. Trova le migliori opportunità nella tua zona.">
+            content="Trova il veterinario più vicino a te. Specialisti per cani, gatti, animali esotici e da fattoria. Consulenza e pronto soccorso 24/7.">
     <?php endif; ?>
 
     <?php if (isset($canonical)): ?>
@@ -59,11 +59,11 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="<?= htmlspecialchars($metaTitle ?? 'Aste Giudiziarie 24') ?>">
+    <meta property="og:title" content="<?= htmlspecialchars($metaTitle ?? 'Trova Veterinario') ?>">
     <meta property="og:description"
-        content="<?= htmlspecialchars($metaDescription ?? 'Assistenza completa per aste giudiziarie e fallimentari') ?>">
+        content="<?= htmlspecialchars($metaDescription ?? 'Il tuo riferimento per la salute animale') ?>">
     <meta property="og:url" content="<?= htmlspecialchars($canonical ?? APP_URL) ?>">
-    <meta property="og:site_name" content="Aste Giudiziarie 24">
+    <meta property="og:site_name" content="Trova Veterinario">
 
     <!-- Favicon -->
     <!-- Favicon -->
@@ -81,8 +81,8 @@
     <!-- Schema Markup -->
     <?php if (isset($schemaMarkup)): ?>
         <script type="application/ld+json">
-                                                <?= json_encode($schemaMarkup, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?>
-                                                </script>
+                                                    <?= json_encode($schemaMarkup, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?>
+                                                    </script>
     <?php endif; ?>
 
     <?php if (!empty(RECAPTCHA_SITE_KEY)): ?>
@@ -96,7 +96,7 @@
             <div class="header-content">
                 <div class="logo">
                     <a href="/">
-                        <h1>Aste Giudiziarie 24</h1>
+                        <h1>Trova Veterinario</h1>
                     </a>
                 </div>
 

@@ -9,7 +9,7 @@ require_once __DIR__ . '/../includes/functions.php';
 
 http_response_code(404);
 
-$metaTitle = 'Pagina Non Trovata - Aste Giudiziarie 24';
+$metaTitle = 'Pagina Non Trovata - Trova Veterinario';
 $metaDescription = 'La pagina che stai cercando non esiste. Torna alla homepage o esplora i nostri servizi.';
 
 include __DIR__ . '/../includes/header.php';

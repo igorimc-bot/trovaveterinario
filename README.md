@@ -1,93 +1,52 @@
-# Aste Giudiziarie 24 - Lead Generation Website
+# Trova Veterinario
 
-Sito web per la generazione di lead nel settore aste giudiziarie e fallimentari in Italia, con CRM integrato per la gestione e distribuzione dei lead ai partner.
+Trova Veterinario è il portale italiano dedicato alla ricerca di professionisti per la salute animale.
+Permette agli utenti di trovare veterinari, cliniche e pronto soccorso specializzati per cani, gatti, animali esotici e da fattoria.
 
-## 🚀 Quick Start
+## 🚀 Caratteristiche
 
-### Requisiti
+- **Ricerca Geocalizzata**: Trova specialisti in tutta Italia (Regioni, Province, Comuni).
+- **Filtri per Specializzazione**: Cani, gatti, rettili, uccelli, animali da fattoria, ecc.
+- **Lead Generation**: Form wizard multi-step per richiedere appuntamenti o preventivi.
+- **Area Partner**: Gestione per veterinari e cliniche che vogliono aderire al network.
+- **Blog e Guide**: Informazioni utili per la cura degli animali.
+
+## 🛠️ Requisiti Tecnici
+
 - PHP 7.4+
 - MySQL 5.7+ / MariaDB 10.3+
 - Composer
-- Apache/Nginx con mod_rewrite
+- Web Server (Apache/Nginx) con `mod_rewrite` abilitato
 
-### Installazione
+## 📦 Installazione
 
-1. **Clone repository**
-   ```bash
-   git clone <repository-url>
-   cd astegiudiziarie24
-   ```
+1.  **Clona il repository**
+    ```bash
+    git clone https://github.com/igorimc-bot/trovaveterinario.git
+    cd trovaveterinario
+    ```
 
-2. **Installa dipendenze**
-   ```bash
-   composer install
-   ```
+2.  **Installa le dipendenze**
+    ```bash
+    composer install
+    ```
 
-3. **Configura environment**
-   ```bash
-   cp .env.example .env
-   ```
-   Modifica `.env` con le tue credenziali database.
+3.  **Configura l'ambiente**
+    Copia il file di esempio e configura i dati del database:
+    ```bash
+    cp .env.example .env
+    ```
 
-4. **Crea database**
-   ```bash
-   php scripts/install.php
-   ```
-
-5. **Popola dati iniziali**
-   ```bash
-   php scripts/populate-regioni.php
-   php scripts/populate-province.php
-   php scripts/populate-comuni.php
-   php scripts/populate-servizi.php
-   php scripts/create-admin.php
-   ```
-
-6. **Configura web server**
-   - Document root: `/public`
-   - Abilita mod_rewrite
-
-## 📁 Struttura Progetto
-
-```
-/public/          # Document root
-/admin/           # CRM admin panel
-/includes/        # Core PHP files
-/api/             # API endpoints
-/scripts/         # Utility scripts
-```
-
-## 🔐 Accesso Admin
-
-URL: `/admin/`
-Credenziali di default create durante setup.
-
-## 📖 Documentazione
-
-Vedi [implementation_plan.md](../brain/implementation_plan.md) per la documentazione completa.
-
-## 🛠️ Sviluppo
-
-- **Environment**: Development mode in `.env`
-- **Debug**: Abilitato in development
-- **Logs**: Controlla `/logs/` per errori
-
-## 📊 Database
-
-Schema completo in `database.sql`:
-- 20 Regioni italiane
-- 107 Province italiane
-- ~8,000 Comuni italiani
-- 8 Servizi (auto, case, barche, moto, etc.)
+4.  **Database**
+    Importa il dump del database (struttura e dati geografici).
 
 ## 🔒 Sicurezza
 
-- Password hash con bcrypt
-- Prepared statements (SQL injection prevention)
-- CSRF protection
-- XSS sanitization
-- reCAPTCHA v3
+- Protezione CSRF su tutti i form
+- Sanitizzazione degli input
+- Integrazione Google reCAPTCHA v3
+- Hash delle password sicuri
 
-## 📞 Supporto
+## 📞 Contatti
 
-Per supporto tecnico, consulta la documentazione SOP.
+Per informazioni o supporto: `info@trovaveterinario.com`
