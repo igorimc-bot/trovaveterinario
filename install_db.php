@@ -1,4 +1,16 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+// Check dependencies
+if (!file_exists(__DIR__ . '/vendor/autoload.php')) {
+    die("<h1>Error: Missing Dependencies</h1><p>The 'vendor' directory is missing. Please run <code>composer install</code> on your server or upload the 'vendor' folder.</p>");
+}
+if (!file_exists(__DIR__ . '/.env')) {
+    die("<h1>Error: Missing Configuration</h1><p>The .env file is missing. Please make sure to create it or upload it.</p>");
+}
+
 require_once 'includes/config.php';
 require_once 'includes/db.php';
 
