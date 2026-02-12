@@ -1,0 +1,14 @@
+.env
+.env.local
+.env.production
+vendor/
+logs/*.log
+!logs/.gitkeep
+*.log
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
