@@ -1,5 +1,5 @@
 /* ===================================
-   Aste Giudiziarie 24 - Main Stylesheet
+   Trova Veterinario - Main Stylesheet
    =================================== */
 
 /* CSS Variables */
@@ -178,28 +178,34 @@ p {
 
 /* Header & Maga Menu */
 .site-header {
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-light);
-    position: sticky;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 100%);
+    backdrop-filter: blur(2px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: absolute;
     top: 0;
+    left: 0;
+    width: 100%;
     z-index: 1000;
+    transition: background 0.3s ease;
+}
+
+.site-header:hover {
+     background: rgba(15, 23, 42, 0.8);
+     backdrop-filter: blur(10px);
 }
 
 .header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 80px;
+    height: 90px;
 }
 
 .logo h1 {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     margin: 0;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
 }
 
 .main-nav {
@@ -214,11 +220,13 @@ p {
 }
 
 .nav-menu>li>a {
-    color: var(--text-main);
+    color: rgba(255, 255, 255, 0.9);
     font-weight: 500;
     padding: 0.5rem 0;
     position: relative;
-    font-size: 0.95rem;
+    font-size: 1rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+    transition: color 0.3s;
 }
 
 .nav-menu>li>a:hover,
@@ -334,11 +342,16 @@ p {
 .hero-section,
 .hero {
     position: relative;
-    padding: 180px 0 120px;
+    height: 100vh; /* Full viewport height */
+    width: 100%;   /* Full width */
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: var(--primary-color);
     color: white;
     text-align: center;
     overflow: hidden;
+    padding: 0; /* Remove padding to ensure full screen */
 }
 
 /* Hero Slideshow */

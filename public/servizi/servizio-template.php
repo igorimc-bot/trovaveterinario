@@ -19,8 +19,8 @@ if (!isset($servizio) || !$servizio) {
 $regioni = getAllRegioni();
 
 // SEO Meta
-$metaTitle = $servizio['meta_title'] ?? "{$servizio['nome']} | Aste Giudiziarie 24";
-$metaDescription = $servizio['meta_description'] ?? "Assistenza completa per {$servizio['nome']}. Consulenza gratuita, esperti del settore, supporto legale in tutta Italia. Contattaci ora!";
+$metaTitle = $servizio['meta_title'] ?? "{$servizio['nome']} | Trova Veterinario";
+$metaDescription = $servizio['meta_description'] ?? "Trova i migliori specialisti per {$servizio['nome']}. Consulenza, visite e pronto soccorso in tutta Italia. Contattaci ora!";
 $canonical = APP_URL . '/servizi/' . $servizio['slug'];
 
 // Breadcrumb

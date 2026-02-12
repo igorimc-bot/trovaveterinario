@@ -7,7 +7,7 @@ $pdo = db()->getConnection();
 $servizi = $pdo->query("SELECT * FROM servizi WHERE attivo = 1 ORDER BY ordine ASC, id DESC")->fetchAll(PDO::FETCH_ASSOC);
 
 $metaTitle = "I Nostri Servizi | Trova Veterinario";
-$metaDescription = "Scopri tutti i servizi offerti da Trova Veterinario. Consulenza legale, aste immobiliari, aste auto e molto altro.";
+$metaDescription = "Scopri tutti i servizi offerti da Trova Veterinario. Visite specialistiche, chirurgia, vaccinazioni, toelettatura e molto altro.";
 
 include __DIR__ . '/includes/header.php';
 ?>
@@ -179,7 +179,7 @@ include __DIR__ . '/includes/header.php';
                             <img src="<?= htmlspecialchars($s['immagine']) ?>" alt="<?= htmlspecialchars($s['nome']) ?>">
                         <?php else: ?>
                             <div class="no-img-placeholder">
-                                Trovaveterinario
+                                Trova Veterinario
                             </div>
                         <?php endif; ?>
                     </div>

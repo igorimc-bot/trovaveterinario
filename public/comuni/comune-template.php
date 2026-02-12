@@ -27,8 +27,8 @@ if (!$comuneFull) {
 $servizi = getAllServizi();
 
 // SEO Meta
-$metaTitle = $comuneFull['meta_title'] ?? generateMetaTitle('Aste Giudiziarie', $comuneFull['nome'], 'comune');
-$metaDescription = $comuneFull['meta_description'] ?? generateMetaDescription('Aste Giudiziarie', $comuneFull['nome'], 'comune');
+$metaTitle = $comuneFull['meta_title'] ?? generateMetaTitle('Trova Veterinario', $comuneFull['nome'], 'comune');
+$metaDescription = $comuneFull['meta_description'] ?? generateMetaDescription('Trova Veterinario', $comuneFull['nome'], 'comune');
 $canonical = APP_URL . '/comuni/' . $comuneFull['slug'];
 
 // Breadcrumb
@@ -41,7 +41,7 @@ $breadcrumbItems = [
 
 // Schema Markup
 $serviceSchema = generateServiceSchema(
-    ['nome' => 'Aste Giudiziarie e Fallimentari', 'descrizione_breve' => 'Assistenza completa per aste'],
+    ['nome' => 'Veterinari e Cliniche', 'descrizione_breve' => 'Assistenza veterinaria completa'],
     $comuneFull,
     'comune'
 );
@@ -69,11 +69,11 @@ include __DIR__ . '/../../includes/header.php';
     <div class="container">
         <div class="hero-content">
             <h1 class="hero-title">
-                Aste Giudiziarie a <?= htmlspecialchars($comuneFull['nome']) ?>
+                Veterinari a <?= htmlspecialchars($comuneFull['nome']) ?>
             </h1>
             <p class="hero-subtitle">
-                Assistenza completa per acquisti all'asta a <?= htmlspecialchars($comuneFull['nome']) ?>
-                (<?= htmlspecialchars($comuneFull['provincia_sigla']) ?>). Consulenza gratuita, esperti locali.
+                Trova i migliori veterinari e cliniche a <?= htmlspecialchars($comuneFull['nome']) ?>
+                (<?= htmlspecialchars($comuneFull['provincia_sigla']) ?>). Consulenza, pronto soccorso e specialisti.
             </p>
         </div>
     </div>
@@ -94,8 +94,8 @@ include __DIR__ . '/../../includes/header.php';
 <section class="services-section">
     <div class="container">
         <div class="section-header">
-            <h2>Servizi Disponibili a <?= htmlspecialchars($comuneFull['nome']) ?></h2>
-            <p>Scopri tutti i servizi di assistenza per aste nel tuo comune</p>
+            <h2>Servizi Veterinari a <?= htmlspecialchars($comuneFull['nome']) ?></h2>
+            <p>Scopri specialisti e cliniche nel tuo comune</p>
         </div>
 
         <div class="services-grid">
@@ -111,7 +111,7 @@ include __DIR__ . '/../../includes/header.php';
                             <?php else: ?>
                                 <div
                                     style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(45deg, #e6e9f0 0%, #eef1f5 100%); color: #999; font-weight: 600; border-radius: 15px;">
-                                    Aste Giudiziarie 24
+                                    Trova Veterinario
                                 </div>
                             <?php endif; ?>
                         </div>

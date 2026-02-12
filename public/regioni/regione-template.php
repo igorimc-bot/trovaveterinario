@@ -20,8 +20,8 @@ $servizi = getAllServizi();
 $province = getProvinceByRegione($regione['id']);
 
 // SEO Meta
-$metaTitle = $regione['meta_title'] ?? generateMetaTitle('Aste Giudiziarie', $regione['nome'], 'regione');
-$metaDescription = $regione['meta_description'] ?? generateMetaDescription('Aste Giudiziarie', $regione['nome'], 'regione');
+$metaTitle = $regione['meta_title'] ?? generateMetaTitle('Trova Veterinario', $regione['nome'], 'regione');
+$metaDescription = $regione['meta_description'] ?? generateMetaDescription('Trova Veterinario', $regione['nome'], 'regione');
 $canonical = APP_URL . '/regioni/' . $regione['slug'];
 
 // Breadcrumb
@@ -32,7 +32,7 @@ $breadcrumbItems = [
 
 // Schema Markup
 $serviceSchema = generateServiceSchema(
-    ['nome' => 'Aste Giudiziarie e Fallimentari', 'descrizione_breve' => 'Assistenza completa per aste'],
+    ['nome' => 'Veterinari e Cliniche', 'descrizione_breve' => 'Assistenza veterinaria completa'],
     $regione,
     'regione'
 );
@@ -55,11 +55,11 @@ include __DIR__ . '/../../includes/header.php';
     <div class="container">
         <div class="hero-content">
             <h1 class="hero-title">
-                Aste Giudiziarie in <?= htmlspecialchars($regione['nome']) ?>
+                Veterinari in <?= htmlspecialchars($regione['nome']) ?>
             </h1>
             <p class="hero-subtitle">
-                Assistenza completa per acquisti all'asta in <?= htmlspecialchars($regione['nome']) ?>. Consulenza
-                gratuita, esperti locali.
+                Trova i migliori veterinari e cliniche in <?= htmlspecialchars($regione['nome']) ?>. Consulenza,
+                pronto soccorso e specialisti.
             </p>
         </div>
     </div>
@@ -80,8 +80,8 @@ include __DIR__ . '/../../includes/header.php';
 <section class="services-section">
     <div class="container">
         <div class="section-header">
-            <h2>Servizi Disponibili in <?= htmlspecialchars($regione['nome']) ?></h2>
-            <p>Scopri tutti i servizi di assistenza per aste nella tua regione</p>
+            <h2>Servizi Veterinari in <?= htmlspecialchars($regione['nome']) ?></h2>
+            <p>Scopri specialisti e cliniche nella tua regione</p>
         </div>
 
         <div class="services-grid">
@@ -97,7 +97,7 @@ include __DIR__ . '/../../includes/header.php';
                             <?php else: ?>
                                 <div
                                     style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(45deg, #e6e9f0 0%, #eef1f5 100%); color: #999; font-weight: 600; border-radius: 15px;">
-                                    Aste Giudiziarie 24
+                                    Trova Veterinario
                                 </div>
                             <?php endif; ?>
                         </div>

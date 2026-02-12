@@ -26,9 +26,9 @@ include __DIR__ . '/../includes/header.php';
                         riferimento al trattamento dei dati personali degli utenti che lo consultano.</p>
 
                     <p>Si tratta di un'informativa resa ai sensi degli artt. 13 e 14 del Regolamento (UE) 2016/679
-                        (GDPR) a coloro che interagiscono con i servizi web di <strong>Aste Giudiziarie 24</strong>,
+                        (GDPR) a coloro che interagiscono con i servizi web di <strong>Trova Veterinario</strong>,
                         accessibili per via telematica a partire dall'indirizzo:
-                        <strong>https://astegiudiziarie24.it</strong>.
+                        <strong>https://trovaveterinario.com</strong>.
                     </p>
 
                     <h3 class="mt-4">1. Titolare del Trattamento</h3>
