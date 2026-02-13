@@ -19,8 +19,10 @@ if (!isset($servizio) || !$servizio) {
 $regioni = getAllRegioni();
 
 // SEO Meta
-$metaTitle = $servizio['meta_title'] ?? "{$servizio['nome']} | Trova Veterinario";
-$metaDescription = $servizio['meta_description'] ?? "Trova i migliori specialisti per {$servizio['nome']}. Consulenza, visite e pronto soccorso in tutta Italia. Contattaci ora!";
+// SEO Meta
+$metaTitle = $servizio['meta_title'] ?? "{$servizio['nome']} - Specialisti e Pronto Soccorso | Trova Veterinario";
+$metaDescription = $servizio['meta_description'] ?? "Cerchi un esperto in {$servizio['nome']}? Su Trova Veterinario trovi i migliori specialisti, cliniche e ambulatori nella tua zona. Prenota ora una visita.";
+$metaKeywords = "{$servizio['nome']}, veterinario {$servizio['nome']}, clinica veterinaria {$servizio['nome']}, pronto soccorso {$servizio['nome']}, salute animale";
 $canonical = APP_URL . '/servizi/' . $servizio['slug'];
 
 // Breadcrumb

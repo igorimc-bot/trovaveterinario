@@ -29,8 +29,11 @@ $comuni = getComuniByProvincia($provinciaFull['id']);
 
 // SEO Meta
 // SEO Meta
-$metaTitle = $provinciaFull['meta_title'] ?? generateMetaTitle('Trova Veterinario', $provinciaFull['nome'], 'provincia');
-$metaDescription = $provinciaFull['meta_description'] ?? generateMetaDescription('Trova Veterinario', $provinciaFull['nome'], 'provincia');
+$locationName = $provinciaFull['nome'];
+$regionName = $provinciaFull['regione_nome'];
+$metaTitle = "Veterinari a {$locationName} e Provincia - Studi e Cliniche | Trova Veterinario";
+$metaDescription = "Trova il miglior veterinario a {$locationName}. Elenco completo di studi, ambulatori e cliniche con pronto soccorso H24 nella provincia di {$locationName} ({$regionName}).";
+$metaKeywords = "veterinario {$locationName}, clinica veterinaria {$locationName}, pronto soccorso veterinario {$locationName}, veterinari provincia {$locationName}";
 $canonical = APP_URL . '/province/' . $provinciaFull['slug'];
 
 // Breadcrumb
@@ -124,7 +127,8 @@ include __DIR__ . '/../../includes/header.php';
 
                         <div class="service-card-content">
                             <h3 class="service-title"><?= htmlspecialchars($s['nome']) ?> in Provincia di
-                                <?= htmlspecialchars($provinciaFull['nome']) ?></h3>
+                                <?= htmlspecialchars($provinciaFull['nome']) ?>
+                            </h3>
                             <?php if (!empty($s['features'])): ?>
                                 <div class="service-features">Features: <?= htmlspecialchars($s['features']) ?></div>
                             <?php endif; ?>
@@ -177,7 +181,8 @@ include __DIR__ . '/../../includes/header.php';
 
                         <div class="service-card-content">
                             <h3 class="service-title"><?= htmlspecialchars($s['nome']) ?> in Provincia di
-                                <?= htmlspecialchars($provinciaFull['nome']) ?></h3>
+                                <?= htmlspecialchars($provinciaFull['nome']) ?>
+                            </h3>
                             <?php if (!empty($s['features'])): ?>
                                 <div class="service-features">Features: <?= htmlspecialchars($s['features']) ?></div>
                             <?php endif; ?>

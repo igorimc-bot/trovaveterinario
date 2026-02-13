@@ -43,10 +43,14 @@ if ($locationType === 'regione') {
 
 $breadcrumbItems[] = ['name' => $servizio['nome'], 'url' => '#'];
 
-// Generate SEO meta
-$metaTitle = generateMetaTitle($servizio['nome'], $location['nome'], $locationType);
-$metaDescription = generateMetaDescription($servizio['nome'], $location['nome'], $locationType);
+// SEO Meta
+$locationName = $location['nome'];
+$serviceName = $servizio['nome'];
+$locationPreposition = ($locationType === 'regione') ? 'in' : 'a';
 
+$metaTitle = "{$serviceName} {$locationPreposition} {$locationName} - I Migliori Specialisti | Trova Veterinario";
+$metaDescription = "Cerchi {$serviceName} {$locationPreposition} {$locationName}? Trova i migliori veterinari, cliniche e pronto soccorso H24 nella tua zona. Leggi le recensioni e prenota.";
+$metaKeywords = "{$serviceName} {$locationName}, veterinario {$locationName}, clinica veterinaria {$locationName}, pronto soccorso veterinario {$locationName}, {$serviceName} vicino a me";
 // Canonical URL
 $locationSlugPrefix = $locationType === 'provincia' ? 'provincia-' : '';
 $canonical = APP_URL . '/' . $servizio['slug'] . '/' . $locationSlugPrefix . $location['slug'];

@@ -27,8 +27,11 @@ if (!$comuneFull) {
 $servizi = getAllServizi();
 
 // SEO Meta
-$metaTitle = $comuneFull['meta_title'] ?? generateMetaTitle('Trova Veterinario', $comuneFull['nome'], 'comune');
-$metaDescription = $comuneFull['meta_description'] ?? generateMetaDescription('Trova Veterinario', $comuneFull['nome'], 'comune');
+$locationName = $comuneFull['nome'];
+$provinceName = $comuneFull['provincia_nome'];
+$metaTitle = "Veterinario a {$locationName} ({$provinceName}) - Studi e Visite | Trova Veterinario";
+$metaDescription = "Cerchi un veterinario a {$locationName}? Trova specialisti per cani, gatti ed esotici vicino a te a {$locationName}. Visualizza orari, contatti e recensioni.";
+$metaKeywords = "veterinario {$locationName}, clinica veterinaria {$locationName}, veterinario vicino a me {$locationName}, veterinario {$locationName} {$provinceName}";
 $canonical = APP_URL . '/comuni/' . $comuneFull['slug'];
 
 // Breadcrumb
@@ -127,7 +130,8 @@ include __DIR__ . '/../../includes/header.php';
 
                         <div class="service-card-content">
                             <h3 class="service-title"><?= htmlspecialchars($s['nome']) ?> a
-                                <?= htmlspecialchars($comuneFull['nome']) ?></h3>
+                                <?= htmlspecialchars($comuneFull['nome']) ?>
+                            </h3>
                             <?php if (!empty($s['features'])): ?>
                                 <div class="service-features">Features: <?= htmlspecialchars($s['features']) ?></div>
                             <?php endif; ?>
@@ -180,7 +184,8 @@ include __DIR__ . '/../../includes/header.php';
 
                         <div class="service-card-content">
                             <h3 class="service-title"><?= htmlspecialchars($s['nome']) ?> a
-                                <?= htmlspecialchars($comuneFull['nome']) ?></h3>
+                                <?= htmlspecialchars($comuneFull['nome']) ?>
+                            </h3>
                             <?php if (!empty($s['features'])): ?>
                                 <div class="service-features">Features: <?= htmlspecialchars($s['features']) ?></div>
                             <?php endif; ?>

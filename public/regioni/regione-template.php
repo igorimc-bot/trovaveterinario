@@ -20,8 +20,11 @@ $servizi = getAllServizi();
 $province = getProvinceByRegione($regione['id']);
 
 // SEO Meta
-$metaTitle = $regione['meta_title'] ?? generateMetaTitle('Trova Veterinario', $regione['nome'], 'regione');
-$metaDescription = $regione['meta_description'] ?? generateMetaDescription('Trova Veterinario', $regione['nome'], 'regione');
+// SEO Meta
+$locationName = $regione['nome'];
+$metaTitle = "Veterinari in {$locationName} - Cerca Cliniche e Ambulatori | Trova Veterinario";
+$metaDescription = "Cerchi un veterinario in {$locationName}? Trova i migliori specialisti, cliniche veterinarie e pronto soccorso H24 nella regione {$locationName}. Leggi recensioni e prenota.";
+$metaKeywords = "veterinario {$locationName}, clinica veterinaria {$locationName}, pronto soccorso veterinario {$locationName}, veterinari {$locationName}";
 $canonical = APP_URL . '/regioni/' . $regione['slug'];
 
 // Breadcrumb
@@ -113,7 +116,8 @@ include __DIR__ . '/../../includes/header.php';
 
                         <div class="service-card-content">
                             <h3 class="service-title"><?= htmlspecialchars($s['nome']) ?> in
-                                <?= htmlspecialchars($regione['nome']) ?></h3>
+                                <?= htmlspecialchars($regione['nome']) ?>
+                            </h3>
                             <?php if (!empty($s['features'])): ?>
                                 <div class="service-features">Features: <?= htmlspecialchars($s['features']) ?></div>
                             <?php endif; ?>
@@ -166,7 +170,8 @@ include __DIR__ . '/../../includes/header.php';
 
                         <div class="service-card-content">
                             <h3 class="service-title"><?= htmlspecialchars($s['nome']) ?> in
-                                <?= htmlspecialchars($regione['nome']) ?></h3>
+                                <?= htmlspecialchars($regione['nome']) ?>
+                            </h3>
                             <?php if (!empty($s['features'])): ?>
                                 <div class="service-features">Features: <?= htmlspecialchars($s['features']) ?></div>
                             <?php endif; ?>
