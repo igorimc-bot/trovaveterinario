@@ -1,0 +1,57 @@
+# Trova Veterinario
+> Il portale N.1 per la salute del tuo animale
+
+Trova Veterinario è un servizio gratuito per la ricerca di veterinari, cliniche, ambulatori e pronto soccorso veterinario in tutta Italia.
+
+## Servizi Disponibili
+- Medici Veterinari
+- Cliniche e Ambulatori
+- Pronto Soccorso H24
+- Veterinari per Cani
+- Veterinari per Gatti
+- Veterinari per Animali Esotici
+- Veterinari per Animali da Fattoria
+- Chirurgia Veterinaria
+- Dermatologia
+- Cardiologia
+- Ortopedia
+- Oftalmologia
+- Oncologia
+- Comportamentalisti
+- Fisioterapia
+- Nutrizionisti
+- Vaccinazioni e Microchip
+- Sterilizzazione
+- Eutanasia e Cremazione
+- Toelettatura
+- Pensioni per Animali
+- Educatori Cinofili
+- Pet Sitter
+- Pet Shop
+
+## Copertura Geografica
+Operiamo in tutte le regioni italiane:
+- Abruzzo
+- Basilicata
+- Calabria
+- Campania
+- Emilia-Romagna
+- Friuli-Venezia Giulia
+- Lazio
+- Liguria
+- Lombardia
+- Marche
+- Molise
+- Piemonte
+- Puglia
+- Sardegna
+- Sicilia
+- Toscana
+- Trentino-Alto Adige
+- Umbria
+- Valle d'Aosta
+- Veneto
+
+## Contatti
+- Email: info@trovaveterinario.it
+- Sito Web: https://trovaveterinario.it

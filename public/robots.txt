@@ -1,14 +1,5 @@
 User-agent: *
 Allow: /
 
-# Sitemaps
-Sitemap: https://trovaveterinario.com/sitemap.xml
-
-# Disallow admin area
-Disallow: /admin/
-
-# Disallow API
-Disallow: /api/
-
-# Crawl-delay
-Crawl-delay: 1
+Sitemap: https://trovaveterinario.it/sitemap.xml
+Allow: /llms.txt
