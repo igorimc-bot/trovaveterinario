@@ -528,8 +528,26 @@ section[id] {
 /* Cards & Grids */
 .services-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1.5rem;
+}
+
+@media (max-width: 1200px) {
+    .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .regions-grid {
@@ -549,22 +567,28 @@ section[id] {
 .service-card {
     background: var(--bg-card);
     border-radius: var(--radius-lg);
-    padding: 1rem;
+    padding: 0;
+    /* Remove padding to let image fill width */
     transition: var(--transition);
     display: flex;
     flex-direction: column;
     height: 100%;
     position: relative;
-    border: none;
+    border: 1px solid var(--border-light);
+    overflow: hidden;
+    /* rounded corners for image */
 }
 
 .service-card:hover {
     transform: translateY(-5px);
+    border-color: var(--accent-color);
+    box-shadow: var(--shadow-md);
 }
 
 .service-card-img {
-    height: 280px;
     width: 100%;
+    aspect-ratio: 1/1;
+    /* Make it square */
     background-color: transparent;
     position: relative;
     z-index: 1;
@@ -574,40 +598,34 @@ section[id] {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 0;
+    /* Remove separate border radius */
     transition: var(--transition);
 }
 
 .service-card-img::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: 15px;
-    border: 1px solid transparent;
-    transition: border-color 0.2s;
-    pointer-events: none;
-    z-index: 10;
+    display: none;
+    /* Remove the border effect */
 }
 
 .service-card:hover .service-card-img::after {
-    border-color: #0EA5E9;
+    border-color: transparent;
 }
 
 .service-card-content {
     padding: 1.5rem;
     position: relative;
     background: white;
-    margin: -50px 20px 0 20px;
-    border-radius: 15px;
+    margin: 0;
+    /* Remove overlap margin */
+    border-radius: 0;
+    /* Remove overlap radius */
     z-index: 2;
     flex: 1;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: none;
+    /* Remove shadow from content box */
 }
 
 .service-title {
