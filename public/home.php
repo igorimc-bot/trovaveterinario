@@ -52,7 +52,8 @@ include __DIR__ . '/../includes/header.php';
             Il Miglior Specialista per il Tuo Amico
         </h1>
         <p class="hero-subtitle">
-            <?= getContent('hero_subtitle', 'Cerca e prenota visite con i migliori veterinari in tutta Italia. Cani, gatti, animali esotici e da fattoria.') ?>
+            Il punto di riferimento per la salute del tuo animale. Cerca veterinari, cliniche e pronto soccorso H24 in
+            tutta Italia.
         </p>
 
         <div class="hero-cta">
