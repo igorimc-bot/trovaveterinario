@@ -97,7 +97,7 @@
                 <div class="logo">
                     <a href="/">
                         <img src="/assets/img/Logo Orizzontale Trovaveterinario.png" alt="Trova Veterinario"
-                            style="max-height: 160px;">
+                            style="max-height: 200px;">
                     </a>
                 </div>
 
