@@ -602,6 +602,25 @@ section[id] {
     gap: 1rem;
 }
 
+/* Advertising Grid (3 columns for 6 items) */
+.advertising-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+@media (max-width: 992px) {
+    .advertising-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .advertising-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 .service-link {
     display: block;
     height: 100%;

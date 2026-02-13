@@ -31,7 +31,7 @@ include __DIR__ . '/../includes/header.php';
             <p>Fai crescere la tua attività con noi</p>
         </div>
 
-        <div class="benefits-grid">
+        <div class="advertising-grid">
             <div class="benefit-card">
                 <div class="benefit-icon">📈</div>
                 <h3>Nuovi Clienti</h3>
@@ -78,7 +78,7 @@ include __DIR__ . '/../includes/header.php';
             <p>Professionisti qualificati per la cura degli animali</p>
         </div>
 
-        <div class="services-grid">
+        <div class="advertising-grid">
             <div class="service-card">
                 <div class="service-icon">👨‍⚕️</div>
                 <h3>Medici Veterinari</h3>
