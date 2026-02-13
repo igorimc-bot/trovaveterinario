@@ -7,14 +7,9 @@ echo "<h1>Updating Services for Trovaveterinario</h1>";
 try {
     $pdo = db()->getConnection();
 
-    // 1. Add 'categoria' column if it doesn't exist
-    $columns = $pdo->query("SHOW COLUMNS FROM servizi LIKE 'categoria'")->fetchAll();
-    if (empty($columns)) {
-        $pdo->exec("ALTER TABLE servizi ADD COLUMN categoria VARCHAR(50) DEFAULT 'generale' AFTER slug");
-        echo "<p>Added 'categoria' column.</p>";
-    } else {
-        echo "<p>'categoria' column already exists.</p>";
-    }
+    // 1. Fix 'categoria' column type (it was an ENUM restricting values)
+    $pdo->exec("ALTER TABLE servizi MODIFY COLUMN categoria VARCHAR(50) DEFAULT 'generale'");
+    echo "<p>Updated 'categoria' column to VARCHAR(50).</p>";
 
     // 2. Truncate table (Disable FK checks to allow truncate)
     $pdo->exec("SET FOREIGN_KEY_CHECKS = 0");
