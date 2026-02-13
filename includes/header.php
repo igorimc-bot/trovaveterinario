@@ -68,7 +68,7 @@
     <!-- Favicon -->
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg">
-    <link rel="alternate icon" type="image/x-icon" href="/assets/img/favicon.ico">
+
 
     <!-- CSS -->
     <link rel="stylesheet" href="/assets/css/style.css?v=<?= time() ?>">
@@ -81,8 +81,8 @@
     <!-- Schema Markup -->
     <?php if (isset($schemaMarkup)): ?>
         <script type="application/ld+json">
-                                                            <?= json_encode($schemaMarkup, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?>
-                                                            </script>
+                                                                <?= json_encode($schemaMarkup, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?>
+                                                                </script>
     <?php endif; ?>
 
     <?php if (!empty(RECAPTCHA_SITE_KEY)): ?>
