@@ -76,10 +76,27 @@ include __DIR__ . '/../includes/header.php';
                 return isset($s['categoria']) && $s['categoria'] === 'animali';
             });
 
-            // If no category is found (legacy data), fallback to showing everything in first block or logic
             if (empty($animali) && !empty($servizi) && !isset($servizi[0]['categoria'])) {
                 $animali = $servizi; // Fallback
             }
+
+            if (empty($animali)): ?>
+                <div class="col-12 text-center">
+                    <div class="alert alert-warning" style="display:inline-block;">
+                        <p>Nessun servizio trovato nella categoria 'animali'.</p>
+                        <p>Totale servizi caricati: <strong><?= count($servizi) ?></strong></p>
+                        <p>Categorie disponibili: 
+                            <strong>
+                            <?php 
+                            $cats = array_unique(array_column($servizi, 'categoria'));
+                            echo empty($cats) ? 'Nessuna (colonna mancante o null)' : implode(', ', $cats);
+                            ?>
+                            </strong>
+                        </p>
+                        <p>Esempio primo servizio: <pre><?= print_r($servizi[0] ?? 'N/A', true) ?></pre></p>
+                    </div>
+                </div>
+            <?php endif;
 
             foreach ($animali as $s): ?>
                 <?php if (isset($s['attivo']) && $s['attivo'] == 0)
