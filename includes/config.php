@@ -29,12 +29,12 @@ define('MAIL_HOST', $_ENV['MAIL_HOST'] ?? 'smtp.example.com');
 define('MAIL_PORT', $_ENV['MAIL_PORT'] ?? 587);
 define('MAIL_USER', $_ENV['MAIL_USER'] ?? '');
 define('MAIL_PASS', $_ENV['MAIL_PASS'] ?? '');
-define('MAIL_FROM', $_ENV['MAIL_FROM'] ?? 'noreply@astegiudiziarie24.it');
+define('MAIL_FROM', $_ENV['MAIL_FROM'] ?? 'noreply@trovaveterinario.it');
 define('MAIL_FROM_NAME', $_ENV['MAIL_FROM_NAME'] ?? 'Trova Veterinario');
 define('SITE_NAME', 'Trova Veterinario');
 
 // Admin Configuration
-define('ADMIN_EMAIL', $_ENV['ADMIN_EMAIL'] ?? 'admin@astegiudiziarie24.it');
+define('ADMIN_EMAIL', $_ENV['ADMIN_EMAIL'] ?? 'info@trovaveterinario.it');
 
 // reCAPTCHA Configuration
 define('RECAPTCHA_SITE_KEY', $_ENV['RECAPTCHA_SITE_KEY'] ?? '');
