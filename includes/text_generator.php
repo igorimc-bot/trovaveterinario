@@ -1,6 +1,6 @@
 <?php
 /**
- * Text Generator
+ * Text Generator for Veterinary Services
  * Generates dynamic, SEO-friendly content for Service + Location pages
  */
 
@@ -10,84 +10,102 @@ function generateServiceLocationContent($service, $location, $locationType)
     $serviceName = $service['nome'];
     $serviceNameLower = strtolower($serviceName);
     $locationName = $location['nome'];
-    $locationPrep = ($locationType === 'comune') ? 'a' : 'in';
-    $locationFull = (($locationType === 'provincia') ? 'Provincia di ' : '') . $locationName;
 
-    // Prepare variables for templates
-    $vars = [
-        '{service}' => $serviceName,
-        '{service_lower}' => $serviceNameLower,
-        '{location}' => $locationFull,
-        '{prep}' => $locationPrep,
-        '{location_name}' => $locationName
-    ];
+    // Proper preposition and location formatting
+    if ($locationType === 'comune') {
+        $locationPrep = 'a';
+        $locationFull = $locationName;
+        $locationIn = "nel comune di {$locationName}";
+    } elseif ($locationType === 'provincia') {
+        $locationPrep = 'in';
+        $locationFull = "provincia di {$locationName}";
+        $locationIn = "in provincia di {$locationName}";
+    } else { // regione
+        $locationPrep = 'in';
+        $locationFull = $locationName;
+        $locationIn = "in {$locationName}";
+    }
 
-    // Seed the random generator with a hash of the current page's unique identifiers
-    // This ensures the text is "random" but CONSISTENT for the same page (SEO friendly, doesn't change on every refresh)
-    $seedString = $service['slug'] . $location['slug'] . $locationType;
-    srand(crc32($seedString));
+    // Get base content from service and adapt it
+    $baseContent = !empty($service['contenuto']) ? $service['contenuto'] : '';
 
-    // --- SECTION 1: INTRODUCTION ---
-    $introTemplates = [
-        "Stai cercando un'opportunità per <strong>{service_lower} {prep} {location}</strong>? Sei nel posto giusto. Il mercato delle aste giudiziarie offre occasioni uniche per risparmiare notevolmente rispetto al mercato tradizionale, ma muoversi in questo settore richiede competenza e precisione.",
-        "Acquistare <strong>{service_lower} {prep} {location}</strong> tramite asta giudiziaria può essere un investimento straordinario. Tuttavia, la burocrazia e le procedure legali possono sembrare complesse per chi non è del settore. Ecco perché è fondamentale affidarsi a professionisti esperti.",
-        "Hai individuato un'asta per <strong>{service_lower} {prep} {location}</strong> e vorresti partecipare? Le aste rappresentano una via d'accesso privilegiata a beni di valore a prezzi competitivi, spesso con risparmi fino al 50% sul valore di mercato.",
-        "Il settore delle aste immobiliari e mobiliari è in forte crescita. Se il tuo obiettivo è acquistare <strong>{service_lower} {prep} {location}</strong>, la nostra piattaforma ti offre tutti gli strumenti necessari per partecipare in sicurezza e con consapevolezza.",
-    ];
+    // If we have base content, localize it
+    if (!empty($baseContent)) {
+        // Add location-specific introduction
+        $locationIntro = "<div class='location-intro' style='background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); padding: 2rem; border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid var(--accent-color);'>
+            <h3 style='color: var(--primary-color); margin-top: 0;'>Servizio di {$serviceName} {$locationPrep} {$locationFull}</h3>
+            <p style='font-size: 1.1rem; margin-bottom: 0;'>Stai cercando un veterinario specializzato in <strong>{$serviceNameLower}</strong> {$locationIn}? La nostra rete di professionisti qualificati è presente sul territorio e pronta ad assisterti con competenza e dedizione.</p>
+        </div>";
 
-    // --- SECTION 2: PROBLEM / PAIN POINTS ---
-    $problemTemplates = [
-        "Molti privati rinunciano a partecipare alle aste per paura delle insidie burocratiche o per la difficoltà nel reperire informazioni corrette. Errori nella procedura o nella valutazione del bene possono costare caro.",
-        "Senza una guida esperta, è facile perdersi tra perizie tecniche, avvisi di vendita e scadenze inderogabili. Il rischio è quello di vedere sfumare un affare o, peggio, di incorrere in problemi legali post-aggiudicazione.",
-        "La partecipazione 'fai-da-te' nasconde diverse criticità: dalla lettura corretta della perizia alla verifica di eventuali abusi edilizi o gravami che non vengono cancellati dal decreto di trasferimento.",
-        "Spesso le informazioni disponibili online sono frammentate o poco chiare. Capire realmente lo stato di fatto di un bene e le sue potenzialità richiede un occhio clinico che solo anni di esperienza possono garantire.",
-    ];
+        // Add location-specific additional content
+        $locationDetails = generateLocationSpecificDetails($serviceName, $serviceNameLower, $locationFull, $locationName, $locationType);
 
-    // --- SECTION 3: OUR SOLUTION & LOCAL EXPERTISE ---
-    $solutionTemplates = [
-        "<strong>Aste Giudiziarie 24</strong> mette a tua disposizione un team di esperti radicati nel territorio di <strong>{location}</strong>. Conosciamo a fondo le dinamiche del tribunale locale e le specificità del mercato immobiliare della zona.",
-        "Il nostro servizio di assistenza è pensato per accompagnarti in ogni fase: dalla selezione dei migliori <strong>{service_lower} {prep} {location}</strong>, allo studio della documentazione, fino alla partecipazione all'asta (in presenza o telematica).",
-        "Grazie alla nostra rete di professionisti attivi su <strong>{location}</strong>, offriamo una consulenza a 360 gradi. Non siamo semplici intermediari, ma partner tecnici che tutelano i tuoi interessi prima, durante e dopo l'acquisto.",
-        "Con noi, partecipare a un'asta a <strong>{location}</strong> diventa semplice e sicuro. I nostri consulenti analizzano per te ogni dettaglio, segnalandoti tempestivamente eventuali rischi e stimando con precisione i costi occulti.",
-    ];
+        // Combine: location intro + base content + location details
+        return $locationIntro . $baseContent . $locationDetails;
+    }
 
-    // --- SECTION 4: HOW IT WORKS / BENEFITS ---
-    $processTemplates = [
-        "Il nostro metodo è trasparente: prima di tutto verifichiamo la fattibilità dell'operazione. Se decidi di procedere, prepariamo la domanda di partecipazione e ti assistiamo durante la gara. Il nostro compenso matura solo in caso di successo o è chiaramente preventivato per le fasi di consulenza.",
-        "Ti offriamo un vantaggio competitivo fondamentale: la preparazione. Arrivare al giorno dell'asta sapendo esattamente quanto rilanciare e conoscendo ogni aspetto del bene ti permette di fare affari migliori e senza sorprese.",
-        "Non dovrai preoccuparti di nulla. Ci occupiamo noi di prenotare la visita, dialogare con il custode giudiziario e gestire tutte le pratiche telematiche. Tu potrai concentrarti solo sull'obiettivo: aggiudicarti il bene ed espandere il tuo patrimonio.",
-        "Oltre all'assistenza tecnica e legale, possiamo supportarti anche nell'ottenimento di mutui o finanziamenti specifici per l'acquisto in asta, grazie a convenzioni con i principali istituti di credito operanti su <strong>{location}</strong>.",
-    ];
+    // Fallback: if no base content, generate full content
+    return generateFullServiceLocationContent($serviceName, $serviceNameLower, $locationFull, $locationName, $locationIn, $locationPrep, $locationType);
+}
 
-    // --- SECTION 5: CALL TO ACTION ---
-    $ctaTemplates = [
-        "Non perdere l'occasione della vita. Contattaci oggi stesso per una prima consulenza gratuita su <strong>{service_lower} {prep} {location}</strong> compila il form qui sotto.",
-        "Vuoi saperne di più? I nostri consulenti sono pronti a rispondere a tutte le tue domande. Richiedi subito informazioni senza impegno per le aste a <strong>{location}</strong>.",
-        "Il tempo è un fattore chiave nelle aste. Se hai visto un bene che ti interessa a <strong>{location}</strong>, scrivici subito. Valuteremo insieme come procedere per assicurarci la vittoria.",
-        "Inizia oggi il tuo percorso verso un acquisto sicuro e vantaggioso. Compila il modulo per essere ricontattato da un esperto della zona di <strong>{location}</strong>.",
-    ];
+function generateLocationSpecificDetails($serviceName, $serviceNameLower, $locationFull, $locationName, $locationType)
+{
+    $locationLabel = $locationType === 'provincia' ? "della provincia di {$locationName}" : "di {$locationName}";
 
-    // Select templates using the seeded random function
-    $selectedIntro = str_replace(array_keys($vars), array_values($vars), $introTemplates[rand(0, count($introTemplates) - 1)]);
-    $selectedProblem = str_replace(array_keys($vars), array_values($vars), $problemTemplates[rand(0, count($problemTemplates) - 1)]);
-    $selectedSolution = str_replace(array_keys($vars), array_values($vars), $solutionTemplates[rand(0, count($solutionTemplates) - 1)]);
-    $selectedProcess = str_replace(array_keys($vars), array_values($vars), $processTemplates[rand(0, count($processTemplates) - 1)]);
-    $selectedCta = str_replace(array_keys($vars), array_values($vars), $ctaTemplates[rand(0, count($ctaTemplates) - 1)]);
-
-    // Assemble HTML
-    $html = "
-    <div class='generated-content'>
-        <p class='lead'>$selectedIntro</p>
-        <p>$selectedProblem</p>
-        <h3>Perché affidarsi ai nostri esperti a {location_name}</h3>
-        <p>$selectedSolution</p>
-        <p>$selectedProcess</p>
-        <div class='callout-box' style='background: #f8fafc; padding: 1.5rem; border-left: 4px solid var(--accent-color); margin: 2rem 0; border-radius: 4px;'>
-            <strong>Punto chiave:</strong> $selectedCta
+    return "
+    <div class='location-specific-content' style='margin-top: 3rem; padding-top: 2rem; border-top: 2px solid #e2e8f0;'>
+        <h3 style='color: var(--primary-color);'>Copertura territoriale {$locationLabel}</h3>
+        <p>Il nostro servizio di <strong>{$serviceNameLower}</strong> copre l'intero territorio {$locationLabel}, garantendo interventi rapidi e professionali. Collaboriamo con veterinari esperti che conoscono le specificità del territorio locale e sono in grado di offrire assistenza tempestiva in caso di emergenze.</p>
+        
+        <p>Che tu abbia bisogno di una visita di routine, un intervento specialistico o assistenza urgente, il nostro network professionale {$locationLabel} è sempre disponibile. La vicinanza geografica ci permette di ridurre i tempi di intervento e offrire un servizio più personalizzato, conoscendo le caratteristiche ambientali e sanitarie della zona.</p>
+        
+        <div style='background: #f0f9ff; padding: 1.5rem; border-radius: 6px; margin: 1.5rem 0; border-left: 3px solid var(--primary-color);'>
+            <p style='margin: 0; font-weight: 600; color: var(--primary-color);'>📍 Servizio attivo su tutto il territorio {$locationLabel}</p>
+            <p style='margin: 0.5rem 0 0 0;'>Veterinari qualificati, interventi rapidi, assistenza H24 per emergenze</p>
         </div>
-    </div>
-    ";
+        
+        <h3 style='color: var(--primary-color); margin-top: 2rem;'>Perché scegliere i nostri veterinari {$locationLabel}?</h3>
+        <ul style='line-height: 1.8; color: var(--text-muted);'>
+            <li><strong>Conoscenza del territorio:</strong> I nostri professionisti operano stabilmente {$locationLabel} e conoscono le peculiarità locali</li>
+            <li><strong>Rete capillare:</strong> Collaborazioni con cliniche e ambulatori in tutta l'area per garantire la massima copertura</li>
+            <li><strong>Tempi di intervento ridotti:</strong> La vicinanza geografica permette assistenza rapida, fondamentale nelle emergenze</li>
+            <li><strong>Approccio personalizzato:</strong> Seguiamo ogni paziente nel tempo, costruendo un rapporto di fiducia duraturo</li>
+        </ul>
+    </div>";
+}
 
-    // Final replacement of placeholders in the assembled HTML (just in case)
-    return str_replace(array_keys($vars), array_values($vars), $html);
+function generateFullServiceLocationContent($serviceName, $serviceNameLower, $locationFull, $locationName, $locationIn, $locationPrep, $locationType)
+{
+    // This is a fallback when no base content exists - generates generic but localized content
+    $locationLabel = $locationType === 'provincia' ? "della provincia di {$locationName}" : "di {$locationName}";
+
+    return "
+    <div class='full-generated-content'>
+        <div style='background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); padding: 2rem; border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid var(--accent-color);'>
+            <h3 style='color: var(--primary-color); margin-top: 0;'>{$serviceName} {$locationPrep} {$locationFull}</h3>
+            <p style='font-size: 1.1rem; margin-bottom: 0;'>Stai cercando servizi veterinari specializzati in <strong>{$serviceNameLower}</strong> {$locationIn}? La nostra rete di professionisti qualificati è presente sul territorio e pronta ad assisterti.</p>
+        </div>
+        
+        <p>Il nostro servizio di <strong>{$serviceNameLower}</strong> {$locationIn} è fornito da veterinari altamente qualificati ed esperti nel settore. Comprendiamo quanto sia importante per te la salute e il benessere del tuo animale, per questo mettiamo a disposizione competenza professionale, tecnologie all'avanguardia e un approccio umano e personalizzato.</p>
+        
+        <h3 style='color: var(--primary-color);'>Perché scegliere i nostri professionisti {$locationLabel}?</h3>
+        <p>I veterinari che collaborano con noi {$locationIn} non sono solo professionisti competenti, ma veri appassionati del proprio lavoro. Ogni intervento viene effettuato con la massima cura e attenzione, utilizzando protocolli aggiornati e attrezzature moderne che garantiscono diagnosi precise e trattamenti efficaci.</p>
+        
+        <p>La copertura territoriale capillare {$locationLabel} ci permette di offrire tempi di intervento rapidi, fondamentali soprattutto nelle situazioni di emergenza. La conoscenza approfondita del territorio locale consente inoltre ai nostri veterinari di comprendere meglio le specificità ambientali che possono influenzare la salute degli animali della zona.</p>
+        
+        <div style='background: #f0f9ff; padding: 1.5rem; border-radius: 6px; margin: 2rem 0; border-left: 3px solid var(--primary-color);'>
+            <p style='margin: 0; font-weight: 600; color: var(--primary-color);'>📍 Servizio disponibile su tutto il territorio {$locationLabel}</p>
+            <p style='margin: 0.5rem 0 0 0;'>Veterinari esperti, assistenza professionale, cura dedicata per ogni tipo di animale</p>
+        </div>
+        
+        <h3 style='color: var(--primary-color);'>Cosa offriamo</h3>
+        <ul style='line-height: 1.8; color: var(--text-muted);'>
+            <li><strong>Consulenza specialistica:</strong> Ogni caso viene valutato individualmente con attenzione ai dettagli</li>
+            <li><strong>Strutture moderne:</strong> Cliniche e ambulatori dotati delle migliori tecnologie diagnostiche</li>
+            <li><strong>Disponibilità:</strong> Servizi programmati e assistenza per situazioni urgenti</li>
+            <li><strong>Follow-up dedicato:</strong> Monitoraggio continuo del paziente e supporto post-trattamento</li>
+        </ul>
+        
+        <p><strong>Contattaci ora</strong> per ricevere maggiori informazioni sul nostro servizio di {$serviceNameLower} {$locationIn} e prenota una consulenza con i migliori professionisti del settore veterinario.</p>
+    </div>";
 }
