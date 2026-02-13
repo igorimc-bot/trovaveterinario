@@ -4,15 +4,15 @@
 
 /* CSS Variables */
 :root {
-    /* Palette Premium */
-    --primary-color: #0F172A;
-    /* Slate 900 */
-    --primary-light: #334155;
-    /* Slate 700 */
-    --accent-color: #0EA5E9;
-    /* Sky 500 */
-    --accent-hover: #0284C7;
-    /* Sky 600 */
+    /* Palette Premium - Rebrand Blue & Green */
+    --primary-color: #0060B6;
+    /* Logo Blue */
+    --primary-light: #004C99;
+    /* Darker Blue for contrast */
+    --accent-color: #4CAF50;
+    /* Logo Green */
+    --accent-hover: #43A047;
+    /* Darker Green */
 
     --text-main: #1E293B;
     /* Slate 800 */
