@@ -120,14 +120,13 @@ if ($locationType === 'regione') {
                 <?= htmlspecialchars($locationName) ?>
             </h2>
 
-            <?php if (!empty($servizio['contenuto'])): ?>
-                <?= $servizio['contenuto'] ?>
-            <?php else: ?>
-                <?php
-                require_once __DIR__ . '/../includes/text_generator.php';
-                echo generateServiceLocationContent($servizio, $location, $locationType);
-                ?>
+            <?php
+            // Always use the generator to wrap content with location specifics
+            require_once __DIR__ . '/../includes/text_generator.php';
+            echo generateServiceLocationContent($servizio, $location, $locationType);
+            ?>
 
+            <?php if (empty($servizio['contenuto'])): // Only show button for fully generated content ?>
                 <div class="text-center mt-4" style="margin-top: 2rem;">
                     <a href="#contatti" class="btn btn-primary">Richiedi Consulenza Gratuita</a>
                 </div>
