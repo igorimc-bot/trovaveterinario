@@ -179,7 +179,7 @@ p {
 /* Header & Maga Menu */
 /* Header & Maga Menu */
 .site-header {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     position: absolute;
@@ -200,7 +200,7 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 110px;
+    height: 90px;
 }
 
 .logo img {
