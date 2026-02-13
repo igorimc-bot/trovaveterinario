@@ -16,8 +16,10 @@ try {
         echo "<p>'categoria' column already exists.</p>";
     }
 
-    // 2. Truncate table to ensure clean state (or delete existing to replace)
+    // 2. Truncate table (Disable FK checks to allow truncate)
+    $pdo->exec("SET FOREIGN_KEY_CHECKS = 0");
     $pdo->exec("TRUNCATE TABLE servizi");
+    $pdo->exec("SET FOREIGN_KEY_CHECKS = 1");
     echo "<p>Table 'servizi' truncated.</p>";
 
     // 3. Prepare Insert Statement
