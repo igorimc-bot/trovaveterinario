@@ -74,8 +74,8 @@ a {
 }
 
 .footer-section p {
-    color: #cbd5e1;
-    /* Light grey for text */
+    color: #ffffff;
+    /* White for text */
     line-height: 1.6;
 }
 
@@ -962,11 +962,18 @@ section[id] {
 }
 
 .footer-bottom {
-    margin-top: 4rem;
-    padding-top: 2rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    padding-top: 2rem;
+    margin-top: 2rem;
     text-align: center;
-    font-size: 0.875rem;
+    font-size: 0.9rem;
+}
+
+.footer-bottom p {
+    margin: 0;
+    color: #ffffff;
+    /* FORCE WHITE for copyright text */
 }
 
 /* Mobile */
