@@ -82,7 +82,7 @@ include __DIR__ . '/../includes/header.php';
                                     alt="<?= htmlspecialchars($s['nome']) ?>">
                             <?php else: ?>
                                 <div
-                                    style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(45deg, #e6e9f0 0%, #eef1f5 100%); color: #666; font-weight: 600; border-radius: 15px; text-align:center; padding: 10px;">
+                                    style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(45deg, #e6e9f0 0%, #eef1f5 100%); color: #666; font-weight: 600; text-align:center; padding: 10px;">
                                     <?= htmlspecialchars($s['nome']) ?>
                                 </div>
                             <?php endif; ?>

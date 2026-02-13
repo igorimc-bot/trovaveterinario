@@ -63,7 +63,8 @@ include __DIR__ . '/includes/header.php';
         width: 100%;
         height: 100%;
         object-fit: cover;
-        border-radius: 15px;
+        object-fit: cover;
+        border-radius: 0;
         /* Rounded all corners */
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     }
@@ -74,7 +75,7 @@ include __DIR__ . '/includes/header.php';
         position: relative;
         background: white;
         margin: -50px 20px 0 20px;
-        border-radius: 15px;
+        border-radius: 0;
         z-index: 2;
         flex: 1;
         display: flex;
@@ -149,7 +150,8 @@ include __DIR__ . '/includes/header.php';
         background: linear-gradient(45deg, #e6e9f0 0%, #eef1f5 100%);
         color: #999;
         font-weight: 600;
-        border-radius: 15px;
+        font-weight: 600;
+        border-radius: 0;
         /* Rounded all corners */
     }
 
