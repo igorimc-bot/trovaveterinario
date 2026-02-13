@@ -23,7 +23,7 @@ try {
     echo "<p>Table 'servizi' truncated.</p>";
 
     // 3. Prepare Insert Statement
-    $stmt = $pdo->prepare("INSERT INTO servizi (nome, slug, categoria, descrizione_breve, prezzo, features) VALUES (:nome, :slug, :categoria, :descrizione_breve, :prezzo, :features)");
+    $stmt = $pdo->prepare("INSERT INTO servizi (nome, slug, categoria, descrizione_breve, prezzo, features, attivo) VALUES (:nome, :slug, :categoria, :descrizione_breve, :prezzo, :features, 1)");
 
     // Data - Animals (Category: animali)
     $animali = [
