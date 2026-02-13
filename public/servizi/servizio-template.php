@@ -75,45 +75,46 @@ include __DIR__ . '/../../includes/header.php';
 <!-- Benefits Section -->
 <section class="why-us-section">
     <div class="container">
-        <div class="section-header">
-            <h2>Perché Scegliere il Nostro Servizio</h2>
+        <div class="section-header text-center">
+            <h2>Perché Scegliere Trova Veterinario</h2>
+            <p>La salute del tuo animale è la nostra priorità</p>
         </div>
 
         <div class="benefits-grid">
             <div class="benefit-card">
-                <div class="benefit-icon">✓</div>
-                <h3>Consulenza Gratuita</h3>
-                <p>Valutazione preliminare senza impegno per ogni richiesta</p>
+                <div class="benefit-icon">🐾</div>
+                <h3>Specialisti Certificati</h3>
+                <p>Collaboriamo solo con veterinari qualificati e strutture d'eccellenza.</p>
             </div>
 
             <div class="benefit-card">
-                <div class="benefit-icon">👨‍⚖️</div>
-                <h3>Esperti del Settore</h3>
-                <p>Avvocati, periti e consulenti qualificati a tua disposizione</p>
+                <div class="benefit-icon">🚑</div>
+                <h3>Pronto Soccorso</h3>
+                <p>Reperibilità per urgenze e cliniche aperte 24 ore su 24.</p>
             </div>
 
             <div class="benefit-card">
-                <div class="benefit-icon">🇮🇹</div>
-                <h3>Copertura Nazionale</h3>
-                <p>Assistenza in tutte le regioni italiane</p>
+                <div class="benefit-icon">📍</div>
+                <h3>Vicino a Te</h3>
+                <p>Trova facilmente lo studio veterinario più comodo nella tua zona.</p>
             </div>
 
             <div class="benefit-card">
-                <div class="benefit-icon">🔒</div>
-                <h3>Trasparenza Totale</h3>
-                <p>Preventivi chiari e dettagliati, nessun costo nascosto</p>
+                <div class="benefit-icon">🔬</div>
+                <h3>Tecnologia Avanzata</h3>
+                <p>Accesso a cliniche dotate delle più moderne strumentazioni diagnostiche.</p>
             </div>
 
             <div class="benefit-card">
-                <div class="benefit-icon">📋</div>
-                <h3>Supporto Completo</h3>
-                <p>Dall'analisi dell'asta alla gestione post-acquisto</p>
+                <div class="benefit-icon">❤️</div>
+                <h3>Amore per gli Animali</h3>
+                <p>Passione e dedizione sono al centro di ogni visita e trattamento.</p>
             </div>
 
             <div class="benefit-card">
-                <div class="benefit-icon">⚡</div>
-                <h3>Risposta Rapida</h3>
-                <p>Contatto entro 24 ore dalla richiesta</p>
+                <div class="benefit-icon">📅</div>
+                <h3>Facilità di Contatto</h3>
+                <p>Richiedi appuntamenti o preventivi in pochi click.</p>
             </div>
         </div>
     </div>
