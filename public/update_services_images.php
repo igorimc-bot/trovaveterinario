@@ -10,28 +10,30 @@ try {
 
     // Map correct slug -> filename
     // Filenames have spaces, slugs have dashes
+    // Map correct slug -> filename
+    // Filenames have spaces, slugs have dashes
     $imageMap = [
-        'veterinario-cani' => 'cani.png',
-        'veterinario-gatti' => 'gatti.png',
-        'veterinario-esotici' => 'animali esotici.png', // manual map
-        'veterinario-rettili' => 'rettili.png',
-        'veterinario-uccelli' => 'uccelli.png',
-        'veterinario-cavalli' => 'cavalli.png',
-        'veterinario-fattoria' => 'animali da fattoria.png', // manual map
-        'veterinario-pesci' => 'pesci e acquariofilia.png', // manual map
-        'veterinario-piccoli-mammiferi' => 'piccoli mammiferi.png', // manual map
-        'veterinario-anfibi' => 'anfibi.png',
+        'veterinario-cani' => 'cani.webp',
+        'veterinario-gatti' => 'gatti.webp',
+        'veterinario-esotici' => 'animali esotici.webp', // manual map
+        'veterinario-rettili' => 'rettili.webp',
+        'veterinario-uccelli' => 'uccelli.webp',
+        'veterinario-cavalli' => 'cavalli.webp',
+        'veterinario-fattoria' => 'animali da fattoria.webp', // manual map
+        'veterinario-pesci' => 'pesci e acquariofilia.webp', // manual map
+        'veterinario-piccoli-mammiferi' => 'piccoli mammiferi.webp', // manual map
+        'veterinario-anfibi' => 'anfibi.webp',
 
-        'chirurgia-veterinaria' => 'chirurgia veterinaria.png',
-        'pronto-soccorso' => 'pronto soccorso h24.png', // manual map
-        'vaccinazioni' => 'vaccinazioni e microchip.png', // manual map
-        'visite-domicilio' => 'visite a domicilio.png', // manual map
-        'dermatologia-veterinaria' => 'dermatologia.png',
-        'dentista-veterinario' => 'odontostomatologia.png', // manual map
-        'oculista-veterinario' => 'oftalmologia.png', // manual map
-        'cardiologo-veterinario' => 'cardiologia.png',
-        'oncologo-veterinario' => 'oncologia.png',
-        'ecografia-radiologia' => 'diagnostica per immagini.png' // manual map
+        'chirurgia-veterinaria' => 'chirurgia veterinaria.webp',
+        'pronto-soccorso' => 'pronto soccorso h24.webp', // manual map
+        'vaccinazioni' => 'vaccinazioni e microchip.webp', // manual map
+        'visite-domicilio' => 'visite a domicilio.webp', // manual map
+        'dermatologia-veterinaria' => 'dermatologia.webp',
+        'dentista-veterinario' => 'odontostomatologia.webp', // manual map
+        'oculista-veterinario' => 'oftalmologia.webp', // manual map
+        'cardiologo-veterinario' => 'cardiologia.webp',
+        'oncologo-veterinario' => 'oncologia.webp',
+        'ecografia-radiologia' => 'diagnostica per immagini.webp' // manual map
     ];
 
     $updateCount = 0;
