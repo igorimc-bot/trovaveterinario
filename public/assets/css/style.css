@@ -566,6 +566,15 @@ section[id] {
     gap: 1rem;
 }
 
+.service-link {
+    display: block;
+    height: 100%;
+    min-width: 0;
+    /* Critical for grid items to not overflow */
+    text-decoration: none;
+    color: inherit;
+}
+
 .service-card {
     background: var(--bg-card);
     border-radius: 0;
