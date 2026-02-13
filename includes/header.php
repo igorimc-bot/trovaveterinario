@@ -81,8 +81,8 @@
     <!-- Schema Markup -->
     <?php if (isset($schemaMarkup)): ?>
         <script type="application/ld+json">
-                                                    <?= json_encode($schemaMarkup, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?>
-                                                    </script>
+                                                        <?= json_encode($schemaMarkup, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?>
+                                                        </script>
     <?php endif; ?>
 
     <?php if (!empty(RECAPTCHA_SITE_KEY)): ?>
@@ -96,7 +96,8 @@
             <div class="header-content">
                 <div class="logo">
                     <a href="/">
-                        <h1>Trova Veterinario</h1>
+                        <img src="/assets/img/Logo Orizzontale Trovaveterinario.png" alt="Trova Veterinario"
+                            style="max-height: 60px;">
                     </a>
                 </div>
 
