@@ -77,15 +77,24 @@ include __DIR__ . '/../../includes/header.php';
 <?php endif; ?>
 
 <!-- Services Section -->
+<!-- Services Section - Animals -->
 <section class="services-section">
     <div class="container">
         <div class="section-header">
-            <h2>Servizi Veterinari in <?= htmlspecialchars($regione['nome']) ?></h2>
-            <p>Scopri specialisti e cliniche nella tua regione</p>
+            <h2>Cure e Assistenze Specializzate in <?= htmlspecialchars($regione['nome']) ?></h2>
+            <p>Scegli la specializzazione di cui hai bisogno</p>
         </div>
 
         <div class="services-grid">
-            <?php foreach ($servizi as $s): ?>
+            <?php
+            $animali = array_filter($servizi, function ($s) {
+                return isset($s['categoria']) && $s['categoria'] === 'animali';
+            });
+            if (empty($animali) && !empty($servizi) && !isset($servizi[0]['categoria'])) {
+                $animali = $servizi;
+            }
+
+            foreach ($animali as $s): ?>
                 <?php if (isset($s['attivo']) && $s['attivo'] == 0)
                     continue; ?>
                 <a href="/<?= $s['slug'] ?>/<?= $regione['slug'] ?>" class="service-link"
@@ -103,28 +112,70 @@ include __DIR__ . '/../../includes/header.php';
                         </div>
 
                         <div class="service-card-content">
-                            <h3 class="service-title">
-                                <?= htmlspecialchars($s['nome']) ?> in <?= htmlspecialchars($regione['nome']) ?>
-                            </h3>
-
+                            <h3 class="service-title"><?= htmlspecialchars($s['nome']) ?> in
+                                <?= htmlspecialchars($regione['nome']) ?></h3>
                             <?php if (!empty($s['features'])): ?>
-                                <div class="service-features">
-                                    Features: <?= htmlspecialchars($s['features']) ?>
-                                </div>
+                                <div class="service-features">Features: <?= htmlspecialchars($s['features']) ?></div>
                             <?php endif; ?>
-
                             <div class="service-divider"></div>
-
-                            <p class="service-description">
-                                <?= htmlspecialchars($s['descrizione_breve']) ?>
-                            </p>
-
+                            <p class="service-description"><?= htmlspecialchars($s['descrizione_breve']) ?></p>
                             <?php if (!empty($s['prezzo'])): ?>
                                 <div class="service-footer">
                                     <span class="service-price-label">Prezzo a persona:</span>
-                                    <span class="service-price">
-                                        €<?= number_format($s['prezzo'], 2, ',', '.') ?>
-                                    </span>
+                                    <span class="service-price">€<?= number_format($s['prezzo'], 2, ',', '.') ?></span>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+                    </article>
+                </a>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section - Interventions -->
+<section class="services-section" style="background-color: #f8fafc; border-top: 1px solid #e2e8f0;">
+    <div class="container">
+        <div class="section-header">
+            <h2>Interventi Veterinari Professionali in <?= htmlspecialchars($regione['nome']) ?></h2>
+            <p>Scegli la specializzazione di cui hai bisogno</p>
+        </div>
+
+        <div class="services-grid">
+            <?php
+            $interventi = array_filter($servizi, function ($s) {
+                return isset($s['categoria']) && $s['categoria'] === 'interventi';
+            });
+
+            foreach ($interventi as $s): ?>
+                <?php if (isset($s['attivo']) && $s['attivo'] == 0)
+                    continue; ?>
+                <a href="/<?= $s['slug'] ?>/<?= $regione['slug'] ?>" class="service-link"
+                    style="text-decoration: none; color: inherit;">
+                    <article class="service-card">
+                        <div class="service-card-img">
+                            <?php if (!empty($s['immagine'])): ?>
+                                <img src="<?= htmlspecialchars($s['immagine']) ?>" alt="<?= htmlspecialchars($s['nome']) ?>">
+                            <?php else: ?>
+                                <div
+                                    style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(45deg, #e6e9f0 0%, #eef1f5 100%); color: #999; font-weight: 600;">
+                                    Trova Veterinario
+                                </div>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="service-card-content">
+                            <h3 class="service-title"><?= htmlspecialchars($s['nome']) ?> in
+                                <?= htmlspecialchars($regione['nome']) ?></h3>
+                            <?php if (!empty($s['features'])): ?>
+                                <div class="service-features">Features: <?= htmlspecialchars($s['features']) ?></div>
+                            <?php endif; ?>
+                            <div class="service-divider"></div>
+                            <p class="service-description"><?= htmlspecialchars($s['descrizione_breve']) ?></p>
+                            <?php if (!empty($s['prezzo'])): ?>
+                                <div class="service-footer">
+                                    <span class="service-price-label">Prezzo a persona:</span>
+                                    <span class="service-price">€<?= number_format($s['prezzo'], 2, ',', '.') ?></span>
                                 </div>
                             <?php endif; ?>
                         </div>
