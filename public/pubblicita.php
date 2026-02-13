@@ -79,39 +79,39 @@ include __DIR__ . '/../includes/header.php';
         </div>
 
         <div class="advertising-grid">
-            <div class="service-card">
-                <div class="service-icon">👨‍⚕️</div>
+            <div class="benefit-card">
+                <div class="benefit-icon">👨‍⚕️</div>
                 <h3>Medici Veterinari</h3>
                 <p>Specialisti in animali da compagnia, esotici o da fattoria, disponibili per visite in studio o a
                     domicilio.</p>
             </div>
 
-            <div class="service-card">
-                <div class="service-icon">🏥</div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🏥</div>
                 <h3>Cliniche e Ambulatori</h3>
                 <p>Strutture attrezzate per chirurgia, diagnostica, degenza e pronto soccorso 24/7.</p>
             </div>
 
-            <div class="service-card">
-                <div class="service-icon">✂️</div>
+            <div class="benefit-card">
+                <div class="benefit-icon">✂️</div>
                 <h3>Toelettatori</h3>
                 <p>Professionisti della bellezza e igiene animale.</p>
             </div>
 
-            <div class="service-card">
-                <div class="service-icon">🐕</div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🐕</div>
                 <h3>Educatori Cinofili</h3>
                 <p>Esperti in addestramento e comportamento animale.</p>
             </div>
 
-            <div class="service-card">
-                <div class="service-icon">🦴</div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🦴</div>
                 <h3>Pensioni per Animali</h3>
                 <p>Strutture ricettive per ospitare cani, gatti e altri animali.</p>
             </div>
 
-            <div class="service-card">
-                <div class="service-icon">🏪</div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🏪</div>
                 <h3>Pet Shop</h3>
                 <p>Negozi di alimenti e accessori per animali che vogliono aumentare la visibilità locale.</p>
             </div>
