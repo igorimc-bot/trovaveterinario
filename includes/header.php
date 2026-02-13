@@ -57,6 +57,10 @@
         <link rel="canonical" href="<?= htmlspecialchars($canonical) ?>">
     <?php endif; ?>
 
+    <?php if (isset($metaKeywords)): ?>
+        <meta name="keywords" content="<?= htmlspecialchars($metaKeywords) ?>">
+    <?php endif; ?>
+
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="<?= htmlspecialchars($metaTitle ?? 'Trova Veterinario') ?>">
@@ -81,8 +85,8 @@
     <!-- Schema Markup -->
     <?php if (isset($schemaMarkup)): ?>
         <script type="application/ld+json">
-                                                                <?= json_encode($schemaMarkup, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?>
-                                                                    </script>
+                                                                    <?= json_encode($schemaMarkup, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?>
+                                                                        </script>
     <?php endif; ?>
 
     <?php if (!empty(RECAPTCHA_SITE_KEY)): ?>

@@ -9,8 +9,9 @@ require_once __DIR__ . '/../includes/db.php';
 require_once __DIR__ . '/../includes/functions.php';
 
 // SEO Meta
-$metaTitle = getSetting('site_name', 'Trova Veterinario') . ' - ' . getSetting('site_tagline', 'La salute del tuo animale al primo posto');
-$metaDescription = 'Trova il veterinario giusto per il tuo animale. Specialisti in cani, gatti, rettili, uccelli e animali da fattoria. Pronto soccorso e visite specialistiche.';
+$metaTitle = 'Trova Veterinario | Il Network N.1 per la Salute del tuo Animale';
+$metaDescription = 'Cerchi un veterinario vicino a te? Su Trova Veterinario puoi trovare i migliori specialisti per cani, gatti, rettili, uccelli e animali da fattoria. Prenota visite, emergenze e pronto soccorso H24.';
+$metaKeywords = 'veterinario, clinica veterinaria, pronto soccorso veterinario, veterinario cani, veterinario gatti, veterinario esotici, veterinario animali da fattoria, salute animale';
 $canonical = APP_URL;
 
 // Schema Markup - Organization
