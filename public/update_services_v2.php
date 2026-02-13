@@ -69,6 +69,14 @@ try {
 
     echo "<h3>Success! Added " . count($all_services) . " services.</h3>";
 
+    // Verify insertion
+    $check = $pdo->query("SELECT categoria, COUNT(*) as count, SUM(attivo) as active_count FROM servizi GROUP BY categoria")->fetchAll(PDO::FETCH_ASSOC);
+    echo "<h4>Database Status:</h4><ul>";
+    foreach ($check as $row) {
+        echo "<li>Category '{$row['categoria']}': {$row['count']} services ({$row['active_count']} active)</li>";
+    }
+    echo "</ul>";
+
 } catch (Exception $e) {
     echo "<h3 style='color:red'>Error: " . htmlspecialchars($e->getMessage()) . "</h3>";
 }
