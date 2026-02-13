@@ -61,17 +61,82 @@ include __DIR__ . '/../includes/header.php';
     </div>
 </section>
 
-<!-- Services Section -->
+<!-- Services Section - Animals -->
 <section id="servizi" class="services-section">
     <div class="container">
         <div class="section-header text-center">
-            <h2>Cura e Assistenza Veterinaria</h2>
+            <h2>Cure e Assistenze Specializzate</h2>
             <p>Scegli la specializzazione di cui hai bisogno</p>
         </div>
 
         <div class="services-grid">
-            <!-- Styles moved to style.css -->
-            <?php foreach ($servizi as $s): ?>
+            <?php
+            // Filter Categories
+            $animali = array_filter($servizi, function ($s) {
+                return isset($s['categoria']) && $s['categoria'] === 'animali';
+            });
+
+            // If no category is found (legacy data), fallback to showing everything in first block or logic
+            if (empty($animali) && !empty($servizi) && !isset($servizi[0]['categoria'])) {
+                $animali = $servizi; // Fallback
+            }
+
+            foreach ($animali as $s): ?>
+                <?php if (isset($s['attivo']) && $s['attivo'] == 0)
+                    continue; ?>
+                <a href="/servizi/<?= $s['slug'] ?>" class="service-link" style="text-decoration: none; color: inherit;">
+                    <article class="service-card">
+                        <div class="service-card-img">
+                            <?php if (!empty($s['immagine'])): ?>
+                                <img src="<?= htmlspecialchars($s['immagine']) ?>?v=<?= time() ?>"
+                                    alt="<?= htmlspecialchars($s['nome']) ?>">
+                            <?php else: ?>
+                                <div
+                                    style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(45deg, #e6e9f0 0%, #eef1f5 100%); color: #666; font-weight: 600; text-align:center; padding: 10px;">
+                                    <?= htmlspecialchars($s['nome']) ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="service-card-content">
+                            <h3 class="service-title">
+                                <?= htmlspecialchars($s['nome']) ?>
+                            </h3>
+
+                            <?php if (!empty($s['features'])): ?>
+                                <div class="service-features">
+                                    Include: <?= htmlspecialchars($s['features']) ?>
+                                </div>
+                            <?php endif; ?>
+
+                            <div class="service-divider"></div>
+
+                            <p class="service-description">
+                                <?= htmlspecialchars($s['descrizione_breve']) ?>
+                            </p>
+                        </div>
+                    </article>
+                </a>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section - Interventions -->
+<section class="services-section" style="background-color: #f8fafc; border-top: 1px solid #e2e8f0;">
+    <div class="container">
+        <div class="section-header text-center">
+            <h2>Interventi Veterinari Professionali</h2>
+            <p>Scegli la specializzazione di cui hai bisogno</p>
+        </div>
+
+        <div class="services-grid">
+            <?php
+            $interventi = array_filter($servizi, function ($s) {
+                return isset($s['categoria']) && $s['categoria'] === 'interventi';
+            });
+
+            foreach ($interventi as $s): ?>
                 <?php if (isset($s['attivo']) && $s['attivo'] == 0)
                     continue; ?>
                 <a href="/servizi/<?= $s['slug'] ?>" class="service-link" style="text-decoration: none; color: inherit;">
