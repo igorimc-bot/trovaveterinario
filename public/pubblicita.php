@@ -15,7 +15,10 @@ $canonical = APP_URL . '/pubblicita';
 include __DIR__ . '/../includes/header.php';
 ?>
 
-<section class="hero hero-small">
+<section class="hero-section hero-small"
+    style="padding-top: 160px; padding-bottom: 80px; min-height: 400px; display: flex; align-items: center;">
+    <div class="hero-background" style="background-image: url('/assets/img/Hero-Homepage-Trovaveterinario.webp');">
+    </div>
     <div class="hero-overlay"></div>
     <div class="container hero-container">
         <h1 class="hero-title">Diventa Partner di Trova Veterinario</h1>
