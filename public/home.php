@@ -40,11 +40,8 @@ include __DIR__ . '/../includes/header.php';
 
 <!-- Hero Section -->
 <section class="hero-section">
-    <!-- Slideshow Backgrounds -->
-    <div class="hero-slideshow">
-        <div class="hero-slide active" style="background-image: url('/assets/img/hero-slide-1.png');"></div>
-        <div class="hero-slide" style="background-image: url('/assets/img/hero-slide-2.png');"></div>
-        <div class="hero-slide" style="background-image: url('/assets/img/hero-slide-3.png');"></div>
+    <!-- Hero Background Image -->
+    <div class="hero-background" style="background-image: url('/assets/img/Hero-Homepage-Trovaveterinario.webp');">
     </div>
 
     <div class="hero-overlay"></div>
