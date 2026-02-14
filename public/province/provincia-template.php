@@ -116,7 +116,8 @@ include __DIR__ . '/../../includes/header.php';
                     <article class="service-card">
                         <div class="service-card-img">
                             <?php if (!empty($s['immagine'])): ?>
-                                <img src="<?= htmlspecialchars($s['immagine']) ?>" alt="<?= htmlspecialchars($s['nome']) ?>">
+                                <img src="/<?= ltrim(htmlspecialchars($s['immagine']), '/') ?>"
+                                    alt="<?= htmlspecialchars($s['nome']) ?>">
                             <?php else: ?>
                                 <div
                                     style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(45deg, #e6e9f0 0%, #eef1f5 100%); color: #999; font-weight: 600;">
@@ -170,7 +171,8 @@ include __DIR__ . '/../../includes/header.php';
                     <article class="service-card">
                         <div class="service-card-img">
                             <?php if (!empty($s['immagine'])): ?>
-                                <img src="<?= htmlspecialchars($s['immagine']) ?>" alt="<?= htmlspecialchars($s['nome']) ?>">
+                                <img src="/<?= ltrim(htmlspecialchars($s['immagine']), '/') ?>"
+                                    alt="<?= htmlspecialchars($s['nome']) ?>">
                             <?php else: ?>
                                 <div
                                     style="display: flex; align-items: center; justify-content: center; height: 100%; background: linear-gradient(45deg, #e6e9f0 0%, #eef1f5 100%); color: #999; font-weight: 600;">

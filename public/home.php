@@ -89,7 +89,7 @@ include __DIR__ . '/../includes/header.php';
                     <article class="service-card">
                         <div class="service-card-img">
                             <?php if (!empty($s['immagine'])): ?>
-                                <img src="<?= htmlspecialchars($s['immagine']) ?>?v=<?= time() ?>"
+                                <img src="/<?= ltrim(htmlspecialchars($s['immagine']), '/') ?>?v=<?= time() ?>"
                                     alt="<?= htmlspecialchars($s['nome']) ?>">
                             <?php else: ?>
                                 <div
@@ -144,7 +144,7 @@ include __DIR__ . '/../includes/header.php';
                     <article class="service-card">
                         <div class="service-card-img">
                             <?php if (!empty($s['immagine'])): ?>
-                                <img src="<?= htmlspecialchars($s['immagine']) ?>?v=<?= time() ?>"
+                                <img src="/<?= ltrim(htmlspecialchars($s['immagine']), '/') ?>?v=<?= time() ?>"
                                     alt="<?= htmlspecialchars($s['nome']) ?>">
                             <?php else: ?>
                                 <div
