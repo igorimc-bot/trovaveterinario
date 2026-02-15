@@ -2,15 +2,7 @@
 <html lang="it">
 
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J048HYF8SQ"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-J048HYF8SQ');
-    </script>
+    <!-- Google tag handled by cookie-consent.js -->
 
     <script>
         // Custom Tracking Script
@@ -78,6 +70,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="/assets/css/style.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="/assets/css/cookie-banner.css">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -87,8 +80,8 @@
     <!-- Schema Markup -->
     <?php if (isset($schemaMarkup)): ?>
         <script type="application/ld+json">
-                                                                        <?= json_encode($schemaMarkup, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?>
-                                                                            </script>
+                                                                            <?= json_encode($schemaMarkup, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?>
+                                                                                </script>
     <?php endif; ?>
 
     <?php if (!empty(RECAPTCHA_SITE_KEY)): ?>
