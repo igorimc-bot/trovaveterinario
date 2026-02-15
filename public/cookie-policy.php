@@ -1,6 +1,6 @@
 <?php
-require_once 'includes/db_connect.php';
-require_once 'includes/functions.php';
+require_once __DIR__ . '/../includes/db_connect.php';
+require_once __DIR__ . '/../includes/functions.php';
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -37,7 +37,7 @@ require_once 'includes/functions.php';
 </head>
 
 <body>
-    <?php include 'includes/header.php'; ?>
+    <?php include __DIR__ . '/../includes/header.php'; ?>
     <div class="container">
         <article class="legal-content">
             <h1>Cookie Policy</h1>
@@ -78,7 +78,7 @@ require_once 'includes/functions.php';
                 verranno pubblicati su questa pagina con la relativa data di revisione.</p>
         </article>
     </div>
-    <?php include 'includes/footer.php'; ?>
+    <?php include __DIR__ . '/../includes/footer.php'; ?>
 </body>
 
 </html>
