@@ -3,14 +3,16 @@
 
 <head>
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ERNF5M764V"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-J048HYF8SQ"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
-        gtag('config', 'G-ERNF5M764V');
+        gtag('config', 'G-J048HYF8SQ');
+    </script>
 
+    <script>
         // Custom Tracking Script
         (function () {
             const SITE_ID = 4;
@@ -85,8 +87,8 @@
     <!-- Schema Markup -->
     <?php if (isset($schemaMarkup)): ?>
         <script type="application/ld+json">
-                                                                    <?= json_encode($schemaMarkup, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?>
-                                                                        </script>
+                                                                        <?= json_encode($schemaMarkup, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?>
+                                                                            </script>
     <?php endif; ?>
 
     <?php if (!empty(RECAPTCHA_SITE_KEY)): ?>
