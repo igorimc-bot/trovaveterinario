@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 // Update password
                 $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
-                $updateStmt = $pdo->prepare("UPDATE users SET password = ? WHERE email = ?");
+                $updateStmt = $pdo->prepare("UPDATE users SET password_hash = ? WHERE email = ?");
                 $result = $updateStmt->execute([$hashedPassword, $email]);
 
                 if ($result) {
@@ -161,7 +161,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="card">
         <h1>Reset Password Admin</h1>
         <p style="text-align: center; color: #718096; margin-bottom: 1.5rem;">Utente:
-            <strong>admin@astegiudiziarie24.it</strong></p>
+            <strong>admin@astegiudiziarie24.it</strong>
+        </p>
 
         <?php if ($message): ?>
             <div class="alert <?= $messageType ?>">
