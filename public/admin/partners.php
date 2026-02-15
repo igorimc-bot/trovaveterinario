@@ -202,8 +202,13 @@ $partners = $pdo->query("SELECT * FROM partners ORDER BY created_at DESC")->fetc
                                 <td><?= htmlspecialchars($p['email']) ?><br><?= htmlspecialchars($p['telefono']) ?></td>
                                 <td><?= htmlspecialchars(ucfirst($p['tipologia'])) ?></td>
                                 <td><?= htmlspecialchars($p['stato']) ?></td>
-                                <td><a href="/admin/partner-detail.php?id=<?= $p['id'] ?>"
-                                        style="color: #3498db; font-weight: bold;">Modifica</a></td>
+                                <td>
+                                    <a href="/admin/partner-detail.php?id=<?= $p['id'] ?>"
+                                        style="color: #3498db; font-weight: bold; margin-right: 10px;">Modifica</a>
+                                    <a href="/admin/delete_partner.php?id=<?= $p['id'] ?>"
+                                        onclick="return confirm('Sei sicuro di voler eliminare questo partner?');"
+                                        style="color: #e74c3c; font-weight: bold;">Elimina</a>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                         <?php if (empty($partners)): ?>

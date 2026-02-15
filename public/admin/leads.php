@@ -46,25 +46,87 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestione Leads - Admin</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <style>
-        .admin-layout { display: flex; min-height: 100vh; }
-        .sidebar { width: 250px; background: #2c3e50; color: #ecf0f1; padding: 1rem; }
-        .sidebar a { color: #bdc3c7; text-decoration: none; display: block; padding: 0.5rem 0; }
-        .sidebar a:hover { color: #fff; }
-        .content { flex: 1; padding: 2rem; background: #f8f9fa; }
-        .table-responsive { overflow-x: auto; background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { text-align: left; padding: 1rem; border-bottom: 1px solid #ddd; }
-        th { background: #f1f2f6; }
-        .status-badge { padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.85rem; color: #fff; background: #95a5a6; }
-        .status-nuovo { background: #3498db; }
-        .status-contattato { background: #f1c40f; color: #000; }
-        .status-chiuso { background: #2ecc71; }
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1rem;
+        }
+
+        .sidebar a {
+            color: #bdc3c7;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0;
+        }
+
+        .sidebar a:hover {
+            color: #fff;
+        }
+
+        .content {
+            flex: 1;
+            padding: 2rem;
+            background: #f8f9fa;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #f1f2f6;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: #fff;
+            background: #95a5a6;
+        }
+
+        .status-nuovo {
+            background: #3498db;
+        }
+
+        .status-contattato {
+            background: #f1c40f;
+            color: #000;
+        }
+
+        .status-chiuso {
+            background: #2ecc71;
+        }
+
         .btn-action {
             display: inline-block;
             padding: 0.25rem 0.5rem;
@@ -73,9 +135,18 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
             border-radius: 4px;
             font-size: 0.85rem;
         }
-        .filters { background: white; padding: 1rem; margin-bottom: 1rem; border-radius: 8px; display: flex; gap: 1rem; }
+
+        .filters {
+            background: white;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            display: flex;
+            gap: 1rem;
+        }
     </style>
 </head>
+
 <body>
     <div class="admin-layout">
         <div class="sidebar">
@@ -94,16 +165,19 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <div class="content">
             <h1>Gestione Leads</h1>
-            
+
             <form class="filters" method="GET">
-                <input type="text" name="search" placeholder="Cerca nome o email..." value="<?= htmlspecialchars($search) ?>" style="padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
+                <input type="text" name="search" placeholder="Cerca nome o email..."
+                    value="<?= htmlspecialchars($search) ?>"
+                    style="padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
                 <select name="status" style="padding: 0.5rem; border: 1px solid #ddd; border-radius: 4px;">
                     <option value="">Tutti gli stati</option>
                     <option value="nuovo" <?= $status == 'nuovo' ? 'selected' : '' ?>>Nuovo</option>
                     <option value="contattato" <?= $status == 'contattato' ? 'selected' : '' ?>>Contattato</option>
                     <option value="chiuso" <?= $status == 'chiuso' ? 'selected' : '' ?>>Chiuso</option>
                 </select>
-                <button type="submit" style="padding: 0.5rem 1rem; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer;">Filtra</button>
+                <button type="submit"
+                    style="padding: 0.5rem 1rem; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer;">Filtra</button>
             </form>
 
             <div class="table-responsive">
@@ -125,7 +199,8 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                 <td>#<?= $lead['id'] ?></td>
                                 <td><?= date('d/m/y H:i', strtotime($lead['created_at'])) ?></td>
                                 <td><?= htmlspecialchars($lead['nome'] . ' ' . $lead['cognome']) ?></td>
-                                <td><?= htmlspecialchars($lead['email']) ?><br><small><?= htmlspecialchars($lead['telefono']) ?></small></td>
+                                <td><?= htmlspecialchars($lead['email']) ?><br><small><?= htmlspecialchars($lead['telefono']) ?></small>
+                                </td>
                                 <td><?= htmlspecialchars($lead['servizio_nome']) ?></td>
                                 <td>
                                     <span class="status-badge status-<?= $lead['stato'] ?>">
@@ -133,12 +208,18 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
                                     </span>
                                 </td>
                                 <td>
-                                    <a href="/admin/lead-detail.php?id=<?= $lead['id'] ?>" class="btn-action" style="background: #3498db; text-decoration: none; color: #fff;">Gestisci</a>
+                                    <a href="/admin/lead-detail.php?id=<?= $lead['id'] ?>" class="btn-action"
+                                        style="background: #3498db; text-decoration: none; color: #fff; margin-right: 5px;">Gestisci</a>
+                                    <a href="/admin/delete_lead.php?id=<?= $lead['id'] ?>" class="btn-action"
+                                        onclick="return confirm('Sei sicuro di voler eliminare questo lead?');"
+                                        style="background: #e74c3c; text-decoration: none; color: #fff;">Elimina</a>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
                         <?php if (empty($leads)): ?>
-                            <tr><td colspan="7" style="text-align: center;">Nessun lead trovato.</td></tr>
+                            <tr>
+                                <td colspan="7" style="text-align: center;">Nessun lead trovato.</td>
+                            </tr>
                         <?php endif; ?>
                     </tbody>
                 </table>
@@ -146,4 +227,5 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 </body>
+
 </html>
