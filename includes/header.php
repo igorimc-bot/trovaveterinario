@@ -7,8 +7,13 @@
     <script>
         // Custom Tracking Script
         (function () {
+            // Prevent double execution
+            if (window.trovaVetTracked) return;
+            window.trovaVetTracked = true;
+
             const SITE_ID = 7;
             const BASE_URL = 'https://dashboard.bbproservice.it/api.php';
+            const SESSION_KEY = 'trovavet_visited_session';
 
             function track(type) {
                 fetch(`${BASE_URL}?site_id=${SITE_ID}&type=${type}`)
@@ -16,15 +21,14 @@
             }
 
             // Check if visited in this session
-            if (!sessionStorage.getItem('ag24_visited')) {
+            if (!sessionStorage.getItem(SESSION_KEY)) {
                 // First visit in session
                 track('visit');
-                track('page_view');
-                sessionStorage.setItem('ag24_visited', 'true');
-            } else {
-                // Subsequent page views
-                track('page_view');
+                sessionStorage.setItem(SESSION_KEY, 'true');
             }
+
+            // Always track page view
+            track('page_view');
         })();
     </script>
 
@@ -80,8 +84,8 @@
     <!-- Schema Markup -->
     <?php if (isset($schemaMarkup)): ?>
         <script type="application/ld+json">
-                                                                                <?= json_encode($schemaMarkup, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?>
-                                                                                    </script>
+                                                                                    <?= json_encode($schemaMarkup, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?>
+                                                                                        </script>
     <?php endif; ?>
 
     <?php if (!empty(RECAPTCHA_SITE_KEY)): ?>
