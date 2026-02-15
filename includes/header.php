@@ -7,7 +7,7 @@
     <script>
         // Custom Tracking Script
         (function () {
-            const SITE_ID = 4;
+            const SITE_ID = 7;
             const BASE_URL = 'https://dashboard.bbproservice.it/api.php';
 
             function track(type) {
@@ -80,8 +80,8 @@
     <!-- Schema Markup -->
     <?php if (isset($schemaMarkup)): ?>
         <script type="application/ld+json">
-                                                                            <?= json_encode($schemaMarkup, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?>
-                                                                                </script>
+                                                                                <?= json_encode($schemaMarkup, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT) ?>
+                                                                                    </script>
     <?php endif; ?>
 
     <?php if (!empty(RECAPTCHA_SITE_KEY)): ?>

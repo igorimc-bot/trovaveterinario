@@ -221,7 +221,7 @@ include __DIR__ . '/../includes/header.php';
 
             if (data.success) {
                 // Tracking Lead
-                fetch('https://dashboard.bbproservice.it/api.php?site_id=4&type=lead')
+                fetch('https://dashboard.bbproservice.it/api.php?site_id=7&type=lead')
                     .catch(e => console.error('Tracking error:', e));
 
                 formMessage.textContent = data.message;
