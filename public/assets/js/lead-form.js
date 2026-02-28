@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const regioneIdHidden = document.getElementById('regione_id_hidden');
     let timeoutId;
 
-    if (comuneSearch) {
+    if (comuneSearch && !comuneSearch.hasAttribute('disabled') && !comuneSearch.hasAttribute('readonly')) {
         comuneSearch.addEventListener('input', function () {
             clearTimeout(timeoutId);
             const query = this.value.trim();

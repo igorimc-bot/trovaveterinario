@@ -62,11 +62,22 @@
                 </div>
             <?php endif; ?>
 
-            <?php if (!isset($location['id'])): ?>
+            <!-- Logica visualizzazione Comune di Interesse -->
+            <?php if (!isset($location['id']) || (isset($locationType) && $locationType !== 'comune')): ?>
+                <!-- Homepage o Pagina Regione/Provincia: Autocompletamento Attivo -->
                 <div class="form-group autocomplete-container mt-comune" style="position: relative;">
-                    <label for="comune_search">Comune di Interesse</label>
-                    <input type="text" id="comune_search" placeholder="Inizia a digitare il comune..." autocomplete="off">
+                    <label for="comune_search">Comune di Interesse *</label>
+                    <input type="text" id="comune_search" placeholder="Inizia a digitare il comune..." autocomplete="off"
+                        required>
                     <ul id="comune_results" class="autocomplete-results"></ul>
+                </div>
+            <?php elseif (isset($locationType) && $locationType === 'comune'): ?>
+                <!-- Pagina Singolo Comune: Campo visibile ma disabilitato e precompilato -->
+                <div class="form-group mt-comune">
+                    <label for="comune_search_disabled">Comune di Interesse *</label>
+                    <input type="text" id="comune_search_disabled" value="<?= htmlspecialchars($location['nome']) ?>"
+                        disabled>
+                    <!-- I valori hidden vengono gestiti da lead-form.js per sicurezza se presenti nella DOM -->
                 </div>
             <?php endif; ?>
 
