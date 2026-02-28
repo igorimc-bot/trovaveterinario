@@ -63,20 +63,20 @@
             <?php endif; ?>
 
             <?php if (!isset($location['id'])): ?>
-                <div class="form-group autocomplete-container" style="position: relative;">
+                <div class="form-group autocomplete-container mt-comune" style="position: relative;">
                     <label for="comune_search">Comune di Interesse</label>
                     <input type="text" id="comune_search" placeholder="Inizia a digitare il comune..." autocomplete="off">
                     <ul id="comune_results" class="autocomplete-results"></ul>
                 </div>
             <?php endif; ?>
 
-            <div class="form-group">
+            <div class="form-group mt-descrizione">
                 <label for="descrizione">Note o Richieste Particolari</label>
                 <textarea id="descrizione" name="descrizione" rows="3"
                     placeholder="Descrivi brevemente cosa stai cercando..."></textarea>
             </div>
 
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <label>Preferenza di Contatto</label>
                 <div class="radio-group" style="display: flex; gap: 15px;">
                     <label class="radio-label">
@@ -91,10 +91,9 @@
                 </div>
             </div>
 
-            <div class="form-group checkbox-group mt-3">
-                <label style="align-items: flex-start; display: flex;">
-                    <input type="checkbox" name="privacy" id="privacy" required
-                        style="margin-top: 4px; margin-right: 8px;">
+            <div class="form-group privacy-checkbox-group">
+                <label>
+                    <input type="checkbox" name="privacy" id="privacy" required>
                     <span style="font-size: 0.9rem; line-height: 1.4; display: block;">
                         Dichiaro di aver letto e compreso l'<a href="/privacy-policy" target="_blank">Informativa sulla
                             Privacy</a> e i <a href="/termini-condizioni" target="_blank">Termini e Condizioni
@@ -121,6 +120,7 @@
 </div>
 
 <style>
+    /* Autocomplete */
     .autocomplete-results {
         display: none;
         position: absolute;
@@ -149,5 +149,51 @@
 
     .autocomplete-results li:last-child {
         border-bottom: none;
+    }
+
+    /* Layout Desktop 2 Colonne */
+    @media (min-width: 768px) {
+        .form-row {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 0;
+            /* Reset per flex */
+        }
+
+        .form-row .form-group {
+            flex: 1;
+            margin-bottom: 1.5rem;
+            /* Riporta margine qui */
+        }
+    }
+
+    /* Regolazione Margini Campi Specifici */
+    .mt-comune {
+        margin-top: 1.5rem;
+    }
+
+    .mt-descrizione {
+        margin-top: 1.5rem;
+    }
+
+    /* Fix Checkbox Privacy */
+    .privacy-checkbox-group {
+        margin-top: 2rem;
+        padding: 0;
+        text-align: left;
+        /* Rimosso centro se lo si vuole a sinistra */
+    }
+
+    .privacy-checkbox-group label {
+        display: flex;
+        align-items: flex-start;
+        margin: 0;
+    }
+
+    .privacy-checkbox-group input[type="checkbox"] {
+        margin-top: 4px;
+        margin-right: 12px;
+        flex-shrink: 0;
+        /* Evita che si rimpicciolisca */
     }
 </style>
