@@ -1,73 +1,81 @@
 document.addEventListener('DOMContentLoaded', function () {
-    const wizard = document.getElementById('leadFormWizard');
-    if (!wizard) return;
+    const form = document.getElementById('leadFormWizard');
+    if (!form) return;
 
-    const steps = wizard.querySelectorAll('.wizard-step-content');
-    const indicators = wizard.querySelectorAll('.wizard-step');
-    const nextBtns = wizard.querySelectorAll('.btn-next');
-    const prevBtns = wizard.querySelectorAll('.btn-prev');
-    let currentStep = 1;
+    // Autocomplete per Comune
+    const comuneSearch = document.getElementById('comune_search');
+    const comuneResults = document.getElementById('comune_results');
+    const comuneIdHidden = document.getElementById('comune_id_hidden');
+    const provinciaIdHidden = document.getElementById('provincia_id_hidden');
+    const regioneIdHidden = document.getElementById('regione_id_hidden');
+    let timeoutId;
 
-    // Show initial step
-    showStep(currentStep);
+    if (comuneSearch) {
+        comuneSearch.addEventListener('input', function () {
+            clearTimeout(timeoutId);
+            const query = this.value.trim();
 
-    // Next Buttons
-    nextBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            if (validateStep(currentStep)) {
-                currentStep++;
-                showStep(currentStep);
-                if (currentStep === 3) populateSummary();
+            // Clear hidden fields when typing
+            if (comuneIdHidden) comuneIdHidden.value = '';
+            if (provinciaIdHidden) provinciaIdHidden.value = '';
+            if (regioneIdHidden) regioneIdHidden.value = '';
+
+            if (query.length < 2) {
+                comuneResults.style.display = 'none';
+                return;
             }
+
+            timeoutId = setTimeout(() => {
+                fetch(`/api/search-comuni.php?q=${encodeURIComponent(query)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        comuneResults.innerHTML = '';
+                        if (data.length > 0) {
+                            data.forEach(item => {
+                                const li = document.createElement('li');
+                                li.textContent = item.text;
+                                li.addEventListener('click', () => {
+                                    comuneSearch.value = item.text;
+                                    if (comuneIdHidden) comuneIdHidden.value = item.id;
+                                    if (provinciaIdHidden) provinciaIdHidden.value = item.provincia_id;
+                                    if (regioneIdHidden) regioneIdHidden.value = item.regione_id;
+                                    comuneResults.style.display = 'none';
+                                });
+                                comuneResults.appendChild(li);
+                            });
+                            comuneResults.style.display = 'block';
+                        } else {
+                            comuneResults.style.display = 'none';
+                        }
+                    })
+                    .catch(err => console.error('Errore ricerca comuni:', err));
+            }, 300);
         });
-    });
 
-    // Previous Buttons
-    prevBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            currentStep--;
-            showStep(currentStep);
-        });
-    });
-
-    function showStep(step) {
-        steps.forEach(s => {
-            s.style.display = 'none';
-            s.classList.remove('active');
-        });
-
-        const activeContent = wizard.querySelector(`.wizard-step-content[data-step="${step}"]`);
-        if (activeContent) {
-            activeContent.style.display = 'block';
-            // Small timeout to allow display:block to apply before adding class for opacity transition (if needed)
-            setTimeout(() => activeContent.classList.add('active'), 10);
-        }
-
-        // Update indicators
-        indicators.forEach(i => {
-            const iStep = parseInt(i.dataset.step);
-            if (iStep <= step) {
-                i.classList.add('active');
-            } else {
-                i.classList.remove('active');
+        // Hide autocomplete when clicking outside
+        document.addEventListener('click', function (e) {
+            if (!comuneSearch.contains(e.target) && !comuneResults.contains(e.target)) {
+                comuneResults.style.display = 'none';
             }
         });
     }
 
-    function validateStep(step) {
-        const stepContent = wizard.querySelector(`.wizard-step-content[data-step="${step}"]`);
-        const inputs = stepContent.querySelectorAll('input, select, textarea');
+    // Validazione base
+    function validateForm() {
+        const inputs = form.querySelectorAll('input, select, textarea');
         let isValid = true;
 
         inputs.forEach(input => {
-            if (input.hasAttribute('required') && !input.value.trim()) {
+            if (input.hasAttribute('required') && input.type !== 'checkbox' && !input.value.trim()) {
                 isValid = false;
                 showError(input, 'Campo obbligatorio');
+            } else if (input.type === 'checkbox' && input.hasAttribute('required') && !input.checked) {
+                isValid = false;
+                showError(input, 'Devi accettare per proseguire');
             } else if (input.type === 'email' && input.value && !isValidEmail(input.value)) {
                 isValid = false;
                 showError(input, 'Email non valida');
             } else if (input.type === 'tel' && input.value && !isValidPhone(input.value)) {
-                // Basic phone validation check (length)
                 if (input.value.replace(/[^0-9]/g, '').length < 9) {
                     isValid = false;
                     showError(input, 'Numero non valido');
@@ -84,13 +92,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function showError(input, message) {
         input.classList.add('error');
-        const errorSpan = input.parentNode.querySelector('.error-msg');
+        const parent = input.closest('.form-group') || input.parentNode;
+        const errorSpan = parent.querySelector('.error-msg');
         if (errorSpan) errorSpan.textContent = message;
     }
 
     function clearError(input) {
         input.classList.remove('error');
-        const errorSpan = input.parentNode.querySelector('.error-msg');
+        const parent = input.closest('.form-group') || input.parentNode;
+        const errorSpan = parent.querySelector('.error-msg');
         if (errorSpan) errorSpan.textContent = '';
     }
 
@@ -102,33 +112,13 @@ document.addEventListener('DOMContentLoaded', function () {
         return /^[0-9+\s-]{9,20}$/.test(phone);
     }
 
-    function populateSummary() {
-        const list = document.getElementById('summary-list');
-        list.innerHTML = '';
-
-        const name = document.getElementById('nome').value + ' ' + document.getElementById('cognome').value;
-        addItemToSummary('Nome', name);
-
-        addItemToSummary('Email', document.getElementById('email').value);
-        addItemToSummary('Telefono', document.getElementById('telefono').value);
-
-        const note = document.getElementById('descrizione').value;
-        if (note) addItemToSummary('Note', note);
-    }
-
-    function addItemToSummary(label, value) {
-        const li = document.createElement('li');
-        li.innerHTML = `<strong>${label}:</strong> ${value}`;
-        document.getElementById('summary-list').appendChild(li);
-    }
-
     // Form Submission
-    wizard.addEventListener('submit', async function (e) {
+    form.addEventListener('submit', async function (e) {
         e.preventDefault();
 
-        if (!validateStep(3)) return;
+        if (!validateForm()) return;
 
-        const submitBtn = wizard.querySelector('.btn-submit');
+        const submitBtn = form.querySelector('.btn-submit');
         const formMessage = document.getElementById('formMessageWizard');
         const originalText = submitBtn.textContent;
 
@@ -151,9 +141,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 fetch('https://dashboard.bbproservice.it/api.php?site_id=7&type=lead')
                     .catch(e => console.error('Tracking error:', e));
 
-                // Success State - Show success message and hide form content
-                wizard.innerHTML = `
-                    <div class="wizard-success text-center py-5">
+                // Success State - Show success message
+                form.innerHTML = `
+                    <div class="form-success text-center py-5">
                         <div style="font-size: 4rem; margin-bottom: 1rem;">✅</div>
                         <h3>Richiesta Inviata!</h3>
                         <p>${data.message}</p>

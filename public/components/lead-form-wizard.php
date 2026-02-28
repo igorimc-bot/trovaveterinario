@@ -1,13 +1,4 @@
-<div class="lead-form-wizard-wrapper">
-    <!-- Progress Indicator -->
-    <div class="wizard-progress">
-        <div class="wizard-step active" data-step="1">1</div>
-        <div class="wizard-line"></div>
-        <div class="wizard-step" data-step="2">2</div>
-        <div class="wizard-line"></div>
-        <div class="wizard-step" data-step="3">3</div>
-    </div>
-
+<div class="lead-form-wrapper">
     <form id="leadFormWizard" class="lead-form-wizard" method="POST" action="/api/submit-lead.php">
         <input type="hidden" name="csrf_token" value="<?= generateCsrfToken() ?>">
 
@@ -22,9 +13,12 @@
             <input type="hidden" name="servizio_id" value="<?= $servizio['id'] ?>">
         <?php endif; ?>
 
-        <!-- Step 1: Contatti -->
-        <div class="wizard-step-content active" data-step="1">
-            <h3 class="text-center mb-4">I tuoi Dati di Contatto</h3>
+        <input type="hidden" id="comune_id_hidden" name="comune_id" value="">
+        <input type="hidden" id="provincia_id_hidden" name="provincia_id" value="">
+        <input type="hidden" id="regione_id_hidden" name="regione_id" value="">
+
+        <div class="wizard-step-content active" data-step="1" style="display: block;">
+            <h3 class="text-center mb-4">Richiedi Informazioni o Prenota</h3>
 
             <div class="form-row">
                 <div class="form-group">
@@ -52,16 +46,6 @@
                 </div>
             </div>
 
-            <div class="wizard-actions">
-                <button type="button" class="btn btn-primary btn-next">Avanti →</button>
-            </div>
-        </div>
-
-        <!-- Step 2: Dettagli -->
-        <div class="wizard-step-content" data-step="2">
-            <h3 class="text-center mb-4">Dettagli della Richiesta</h3>
-
-            <!-- Se non siamo in una pagina specifica di servizio, mostriamo la select -->
             <?php if (!isset($servizio['id'])): ?>
                 <div class="form-group">
                     <label for="servizio_select">Servizio di Interesse *</label>
@@ -78,20 +62,11 @@
                 </div>
             <?php endif; ?>
 
-            <!-- Se non siamo in una pagina specifica di location, mostriamo le select geografiche -->
             <?php if (!isset($location['id'])): ?>
-                <div class="form-group">
-                    <label for="regione_select">Regione di Interesse</label>
-                    <select id="regione_select" name="regione_id_select">
-                        <option value="">Tutta Italia</option>
-                        <?php
-                        $allRegioni = getAllRegioni();
-                        foreach ($allRegioni as $r): ?>
-                            <option value="<?= $r['id'] ?>">
-                                <?= htmlspecialchars($r['nome']) ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
+                <div class="form-group autocomplete-container" style="position: relative;">
+                    <label for="comune_search">Comune di Interesse</label>
+                    <input type="text" id="comune_search" placeholder="Inizia a digitare il comune..." autocomplete="off">
+                    <ul id="comune_results" class="autocomplete-results"></ul>
                 </div>
             <?php endif; ?>
 
@@ -103,7 +78,7 @@
 
             <div class="form-group">
                 <label>Preferenza di Contatto</label>
-                <div class="radio-group">
+                <div class="radio-group" style="display: flex; gap: 15px;">
                     <label class="radio-label">
                         <input type="radio" name="preferenza_contatto" value="telefono" checked> Telefono
                     </label>
@@ -116,32 +91,17 @@
                 </div>
             </div>
 
-            <div class="wizard-actions space-between">
-                <button type="button" class="btn btn-outline btn-prev">← Indietro</button>
-                <button type="button" class="btn btn-primary btn-next">Avanti →</button>
-            </div>
-        </div>
-
-        <!-- Step 3: Privacy e Invio -->
-        <div class="wizard-step-content" data-step="3">
-            <h3 class="text-center mb-4">Conferma e Invia</h3>
-
-            <div class="summary-box">
-                <p><strong>Riepilogo dati:</strong></p>
-                <ul id="summary-list">
-                    <!-- Populated by JS -->
-                </ul>
-            </div>
-
-            <div class="form-group checkbox-group">
-                <label style="align-items: flex-start;">
-                    <input type="checkbox" name="privacy" id="privacy" required style="margin-top: 4px;">
+            <div class="form-group checkbox-group mt-3">
+                <label style="align-items: flex-start; display: flex;">
+                    <input type="checkbox" name="privacy" id="privacy" required
+                        style="margin-top: 4px; margin-right: 8px;">
                     <span style="font-size: 0.9rem; line-height: 1.4; display: block;">
                         Dichiaro di aver letto e compreso l'<a href="/privacy-policy" target="_blank">Informativa sulla
                             Privacy</a> e i <a href="/termini-condizioni" target="_blank">Termini e Condizioni
                             d'Uso</a>.
                         <br>
-                        <span class="text-muted" style="font-size: 0.8rem; display: block; margin-top: 0.5rem;">
+                        <span class="text-muted"
+                            style="font-size: 0.8rem; display: block; margin-top: 0.5rem; color: #6c757d;">
                             Autorizzo il trattamento dei miei dati personali ai sensi degli Artt. 13 e 14 del
                             Regolamento UE 2016/679 (GDPR) per le finalità legate alla gestione della richiesta.
                         </span>
@@ -150,13 +110,44 @@
                 <span class="error-msg"></span>
             </div>
 
-            <div class="wizard-actions space-between">
-                <button type="button" class="btn btn-outline btn-prev">← Indietro</button>
-                <button type="submit" class="btn btn-primary btn-lg btn-submit">Invia Richiesta</button>
+            <div class="wizard-actions mt-4 text-center">
+                <button type="submit" class="btn btn-primary btn-lg btn-submit w-100" style="width: 100%;">Invia
+                    Richiesta</button>
             </div>
 
             <div id="formMessageWizard" class="form-message mt-3"></div>
         </div>
-
     </form>
 </div>
+
+<style>
+    .autocomplete-results {
+        display: none;
+        position: absolute;
+        z-index: 1000;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        width: 100%;
+        list-style: none;
+        padding: 0;
+        margin: 4px 0 0 0;
+        max-height: 200px;
+        overflow-y: auto;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .autocomplete-results li {
+        padding: 10px 15px;
+        cursor: pointer;
+        border-bottom: 1px solid #eee;
+    }
+
+    .autocomplete-results li:hover {
+        background-color: #f8f9fa;
+    }
+
+    .autocomplete-results li:last-child {
+        border-bottom: none;
+    }
+</style>
