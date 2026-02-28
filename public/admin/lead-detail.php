@@ -247,7 +247,10 @@ $logs = $history->fetchAll(PDO::FETCH_ASSOC);
                 <h1>Lead #
                     <?= $leadId ?>
                 </h1>
-                <a href="/admin/leads.php" class="btn btn-secondary">← Torna alla lista</a>
+                <div style="display: flex; gap: 10px;">
+                    <a href="/admin/delete_lead.php?id=<?= $leadId ?>" class="btn" style="background: #e74c3c; color: white;" onclick="return confirm('Sei sicuro di voler eliminare definitivamente questo lead? \nL\'azione è irreversibile.');">🗑️ Elimina Lead</a>
+                    <a href="/admin/leads.php" class="btn btn-secondary">← Torna alla lista</a>
+                </div>
             </div>
 
             <?php if ($message): ?>

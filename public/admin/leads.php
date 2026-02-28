@@ -180,52 +180,69 @@ $leads = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     style="padding: 0.5rem 1rem; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer;">Filtra</button>
             </form>
 
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Data</th>
-                            <th>Nome</th>
-                            <th>Contatti</th>
-                            <th>Servizio</th>
-                            <th>Stato</th>
-                            <th>Azioni</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($leads as $lead): ?>
+            <form id="bulkDeleteForm" action="/admin/bulk_delete_leads.php" method="POST"
+                onsubmit="return confirm('Sei sicuro di voler eliminare i lead selezionati? L\'azione è irreversibile.');">
+                <div style="margin-bottom: 1rem;">
+                    <button type="submit" class="btn"
+                        style="background: #e74c3c; color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; cursor: pointer;">🗑️
+                        Elimina Selezionati</button>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
                             <tr>
-                                <td>#<?= $lead['id'] ?></td>
-                                <td><?= date('d/m/y H:i', strtotime($lead['created_at'])) ?></td>
-                                <td><?= htmlspecialchars($lead['nome'] . ' ' . $lead['cognome']) ?></td>
-                                <td><?= htmlspecialchars($lead['email']) ?><br><small><?= htmlspecialchars($lead['telefono']) ?></small>
-                                </td>
-                                <td><?= htmlspecialchars($lead['servizio_nome']) ?></td>
-                                <td>
-                                    <span class="status-badge status-<?= $lead['stato'] ?>">
-                                        <?= htmlspecialchars(ucfirst($lead['stato'])) ?>
-                                    </span>
-                                </td>
-                                <td>
-                                    <a href="/admin/lead-detail.php?id=<?= $lead['id'] ?>" class="btn-action"
-                                        style="background: #3498db; text-decoration: none; color: #fff; margin-right: 5px;">Gestisci</a>
-                                    <a href="/admin/delete_lead.php?id=<?= $lead['id'] ?>" class="btn-action"
-                                        onclick="return confirm('Sei sicuro di voler eliminare questo lead?');"
-                                        style="background: #e74c3c; text-decoration: none; color: #fff;">Elimina</a>
-                                </td>
+                                <th><input type="checkbox" id="selectAll"></th>
+                                <th>ID</th>
+                                <th>Data</th>
+                                <th>Nome</th>
+                                <th>Contatti</th>
+                                <th>Servizio</th>
+                                <th>Stato</th>
+                                <th>Azioni</th>
                             </tr>
-                        <?php endforeach; ?>
-                        <?php if (empty($leads)): ?>
-                            <tr>
-                                <td colspan="7" style="text-align: center;">Nessun lead trovato.</td>
-                            </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
-            </div>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($leads as $lead): ?>
+                                <tr>
+                                    <td><input type="checkbox" name="ids[]" value="<?= $lead['id'] ?>"
+                                            class="lead-checkbox"></td>
+                                    <td>#<?= $lead['id'] ?></td>
+                                    <td><?= date('d/m/y H:i', strtotime($lead['created_at'])) ?></td>
+                                    <td><?= htmlspecialchars($lead['nome'] . ' ' . $lead['cognome']) ?></td>
+                                    <td><?= htmlspecialchars($lead['email']) ?><br><small><?= htmlspecialchars($lead['telefono']) ?></small>
+                                    </td>
+                                    <td><?= htmlspecialchars($lead['servizio_nome']) ?></td>
+                                    <td>
+                                        <span class="status-badge status-<?= $lead['stato'] ?>">
+                                            <?= htmlspecialchars(ucfirst($lead['stato'])) ?>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="/admin/lead-detail.php?id=<?= $lead['id'] ?>" class="btn-action"
+                                            style="background: #3498db; text-decoration: none; color: #fff; margin-right: 5px;">Gestisci</a>
+                                        <a href="/admin/delete_lead.php?id=<?= $lead['id'] ?>" class="btn-action"
+                                            onclick="return confirm('Sei sicuro di voler eliminare questo lead?');"
+                                            style="background: #e74c3c; text-decoration: none; color: #fff;">Elimina</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            <?php if (empty($leads)): ?>
+                                <tr>
+                                    <td colspan="8" style="text-align: center;">Nessun lead trovato.</td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
         </div>
     </div>
+    <script>
+        document.getElementById('selectAll').addEventListener('change', function () {
+            const checkboxes = document.querySelectorAll('.lead-checkbox');
+            checkboxes.forEach(cb => cb.checked = this.checked);
+        });
+    </script>
 </body>
 
 </html>
