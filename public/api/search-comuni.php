@@ -17,8 +17,7 @@ if (strlen($q) < 2) {
 }
 
 try {
-    global $pdo;
-    $stmt = $pdo->prepare("
+    $comuni = db()->fetchAll("
         SELECT 
             c.id AS comune_id, 
             c.nome AS comune_nome, 
@@ -33,9 +32,7 @@ try {
         WHERE c.nome LIKE ? AND c.attivo = 1 
         ORDER BY c.nome ASC 
         LIMIT 15
-    ");
-    $stmt->execute(['%' . $q . '%']);
-    $comuni = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    ", ['%' . $q . '%']);
 
     $results = [];
     foreach ($comuni as $c) {
