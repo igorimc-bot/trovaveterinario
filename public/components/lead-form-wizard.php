@@ -154,22 +154,20 @@
     /* Layout Desktop 2 Colonne */
     @media (min-width: 768px) {
         .form-row {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 1.5rem;
-            margin-bottom: 0;
-            /* Reset per flex */
+            margin-bottom: 0px;
         }
 
         .form-row .form-group {
-            flex: 1;
             margin-bottom: 1.5rem;
-            /* Riporta margine qui */
         }
     }
 
     /* Regolazione Margini Campi Specifici */
     .mt-comune {
-        margin-top: 1.5rem;
+        margin-top: 2rem;
     }
 
     .mt-descrizione {
@@ -178,22 +176,23 @@
 
     /* Fix Checkbox Privacy */
     .privacy-checkbox-group {
-        margin-top: 2rem;
-        padding: 0;
-        text-align: left;
-        /* Rimosso centro se lo si vuole a sinistra */
+        margin-top: 2.5rem;
     }
 
     .privacy-checkbox-group label {
         display: flex;
         align-items: flex-start;
+        justify-content: flex-start;
+        gap: 10px;
         margin: 0;
     }
 
     .privacy-checkbox-group input[type="checkbox"] {
-        margin-top: 4px;
-        margin-right: 12px;
+        margin-top: 5px;
+        margin-right: 0px;
+        /* rimosso gap di margine e usato flex-gap */
         flex-shrink: 0;
-        /* Evita che si rimpicciolisca */
+        width: 18px;
+        height: 18px;
     }
 </style>
