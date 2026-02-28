@@ -13,9 +13,30 @@
             <input type="hidden" name="servizio_id" value="<?= $servizio['id'] ?>">
         <?php endif; ?>
 
-        <input type="hidden" id="comune_id_hidden" name="comune_id" value="">
-        <input type="hidden" id="provincia_id_hidden" name="provincia_id" value="">
-        <input type="hidden" id="regione_id_hidden" name="regione_id" value="">
+        <?php
+        $defaultComuneId = '';
+        $defaultProvinciaId = '';
+        $defaultRegioneId = '';
+
+        if (isset($locationType) && $locationType === 'comune') {
+            global $comuneFull;
+            $defaultComuneId = $location['id'] ?? '';
+            // Usa comuneFull da router/template se disponibile
+            if (!empty($comuneFull)) {
+                $defaultProvinciaId = $comuneFull['provincia_id'] ?? '';
+                $defaultRegioneId = $comuneFull['regione_id'] ?? '';
+            } else {
+                $defaultProvinciaId = $location['provincia_id'] ?? '';
+                $defaultRegioneId = $location['regione_id'] ?? '';
+            }
+        }
+        ?>
+        <input type="hidden" id="comune_id_hidden" name="comune_id"
+            value="<?= htmlspecialchars((string) $defaultComuneId) ?>">
+        <input type="hidden" id="provincia_id_hidden" name="provincia_id"
+            value="<?= htmlspecialchars((string) $defaultProvinciaId) ?>">
+        <input type="hidden" id="regione_id_hidden" name="regione_id"
+            value="<?= htmlspecialchars((string) $defaultRegioneId) ?>">
 
         <div class="wizard-step-content active" data-step="1" style="display: block;">
             <h3 class="text-center mb-4">Richiedi Informazioni o Prenota</h3>
