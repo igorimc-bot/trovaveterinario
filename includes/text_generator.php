@@ -33,7 +33,7 @@ function generateServiceLocationContent($service, $location, $locationType)
     if (!empty($baseContent)) {
         // Add location-specific introduction
         $locationIntro = "<div class='location-intro' style='background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); padding: 2rem; border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid var(--accent-color);'>
-            <h3 style='color: var(--primary-color); margin-top: 0;'>Servizio di {$serviceName} {$locationPrep} {$locationFull}</h3>
+            <h3 style='color: var(--primary-color); margin-top: 0;'>Servizio specializzato in {$serviceName} {$locationPrep} {$locationFull}</h3>
             <p style='font-size: 1.1rem; margin-bottom: 0;'>Stai cercando un veterinario specializzato in <strong>{$serviceNameLower}</strong> {$locationIn}? La nostra rete di professionisti qualificati è presente sul territorio e pronta ad assisterti con competenza e dedizione.</p>
         </div>";
 
