@@ -553,7 +553,7 @@ function getComuneWithDetails($slug)
 {
     $sql = '
         SELECT c.*, 
-               p.nome as provincia_nome, p.slug as provincia_slug, p.sigla as provincia_sigla,
+               p.nome as provincia_nome, p.slug as provincia_slug, p.sigla as provincia_sigla, p.regione_id,
                r.nome as regione_nome, r.slug as regione_slug
         FROM comuni c
         INNER JOIN province p ON c.provincia_id = p.id
