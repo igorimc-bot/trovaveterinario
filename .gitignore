@@ -1,6 +1,7 @@
 .env
 .env.local
 .env.production
+includes/config.php
 vendor/
 logs/*.log
 !logs/.gitkeep
