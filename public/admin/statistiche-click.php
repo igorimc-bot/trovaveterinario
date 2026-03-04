@@ -29,31 +29,102 @@ $topPlaces = $pdo->query($topSql)->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Statistiche Click - Admin</title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <style>
-        .admin-layout { display: flex; min-height: 100vh; }
-        .sidebar { width: 250px; background: #2c3e50; color: #ecf0f1; padding: 1rem; }
-        .sidebar a { color: #bdc3c7; text-decoration: none; display: block; padding: 0.5rem 0; }
-        .sidebar a:hover { color: #fff; }
-        .content { flex: 1; padding: 2rem; background: #f8f9fa; }
-        
-        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
-        .kpi-card { background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #3498db; }
-        .kpi-title { font-size: 0.9rem; color: #7f8c8d; margin-bottom: 0.5rem; text-transform: uppercase; }
-        .kpi-value { font-size: 2rem; font-weight: 700; color: #2c3e50; }
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
 
-        .stats-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 2rem; }
-        .stats-box { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .sidebar {
+            width: 250px;
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1rem;
+        }
 
-        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-        th, td { text-align: left; padding: 1rem; border-bottom: 1px solid #ddd; }
-        th { background: #f1f2f6; }
+        .sidebar a {
+            color: #bdc3c7;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0;
+        }
+
+        .sidebar a:hover {
+            color: #fff;
+        }
+
+        .content {
+            flex: 1;
+            padding: 2rem;
+            background: #f8f9fa;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .kpi-card {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #3498db;
+        }
+
+        .kpi-title {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+        }
+
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .stats-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 1rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #f1f2f6;
+        }
     </style>
 </head>
+
 <body>
     <div class="admin-layout">
         <div class="sidebar">
@@ -99,24 +170,43 @@ $topPlaces = $pdo->query($topSql)->fetchAll(PDO::FETCH_ASSOC);
                                 <tr>
                                     <th>Data</th>
                                     <th>Clinica</th>
+                                    <th>Servizio / Località</th>
                                     <th>Tipo</th>
-                                    <th>Pagina</th>
+                                    <th>Link Attività</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php foreach ($clicks as $click): ?>
                                     <tr>
                                         <td><?= date('d/m/y H:i', strtotime($click['created_at'])) ?></td>
-                                        <td><?= htmlspecialchars($click['place_name']) ?></td>
                                         <td>
-                                            <span style="padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; background: <?= $click['type'] == 'telefono' ? '#e1f5fe' : '#e8f5e9' ?>;">
+                                            <strong><?= htmlspecialchars($click['place_name']) ?></strong>
+                                        </td>
+                                        <td>
+                                            <span
+                                                class="badge-servizio"><?= htmlspecialchars($click['servizio'] ?: '-') ?></span>
+                                            <br>
+                                            <small class="text-muted">
+                                                <?= implode(' > ', array_filter([$click['regione'], $click['provincia'], $click['comune']])) ?: '-' ?>
+                                            </small>
+                                        </td>
+                                        <td>
+                                            <span
+                                                style="padding: 2px 6px; border-radius: 4px; font-size: 0.8rem; background: <?= $click['type'] == 'telefono' ? '#e1f5fe' : ($click['type'] == 'mappe' ? '#fff9c4' : '#e8f5e9') ?>;">
                                                 <?= ucfirst($click['type']) ?>
                                             </span>
                                         </td>
                                         <td>
-                                            <small title="<?= htmlspecialchars($click['page_url']) ?>">
-                                                Link breve...
-                                            </small>
+                                            <div style="display: flex; gap: 8px;">
+                                                <?php if ($click['website_url']): ?>
+                                                    <a href="<?= htmlspecialchars($click['website_url']) ?>" target="_blank"
+                                                        title="Sito Web">🌐</a>
+                                                <?php endif; ?>
+                                                <?php if ($click['google_maps_url']): ?>
+                                                    <a href="<?= htmlspecialchars($click['google_maps_url']) ?>" target="_blank"
+                                                        title="Google Maps">📍</a>
+                                                <?php endif; ?>
+                                            </div>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -151,4 +241,5 @@ $topPlaces = $pdo->query($topSql)->fetchAll(PDO::FETCH_ASSOC);
         </div>
     </div>
 </body>
+
 </html>

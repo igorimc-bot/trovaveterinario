@@ -43,6 +43,24 @@ if ($locationType === 'regione') {
 
 $breadcrumbItems[] = ['name' => $servizio['nome'], 'url' => '#'];
 
+$regName = '';
+$provName = '';
+$comName = '';
+
+if ($locationType === 'regione') {
+    $regName = $location['nome'];
+} elseif ($locationType === 'provincia') {
+    $provName = $location['nome'];
+    if (isset($provinciaFull))
+        $regName = $provinciaFull['regione_nome'];
+} elseif ($locationType === 'comune') {
+    $comName = $location['nome'];
+    if (isset($comuneFull)) {
+        $regName = $comuneFull['regione_nome'];
+        $provName = $comuneFull['provincia_nome'];
+    }
+}
+
 // SEO Meta
 $locationName = $location['nome'];
 $serviceName = $servizio['nome'];
@@ -528,7 +546,10 @@ if ($locationType === 'regione') {
 
             <div class="map-container-wrapper">
                 <div id="map" data-query="<?= htmlspecialchars($servizio['nome']) ?>"
-                    data-location="<?= htmlspecialchars($location['nome']) ?>">
+                    data-location="<?= htmlspecialchars($location['nome']) ?>"
+                    data-servizio="<?= htmlspecialchars($servizio['nome']) ?>"
+                    data-regione="<?= htmlspecialchars($regName) ?>" data-provincia="<?= htmlspecialchars($provName) ?>"
+                    data-comune="<?= htmlspecialchars($comName) ?>">
                     <div class="map-loading"
                         style="display: flex; align-items: center; justify-content: center; height: 100%; background: #eee;">
                         <span>Caricamento mappa e risultati...</span>

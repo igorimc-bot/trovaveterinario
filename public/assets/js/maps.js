@@ -128,7 +128,8 @@ async function renderResults(places, AdvancedMarkerElement) {
                 // Bind tracking
                 item.querySelectorAll('.track-click').forEach(link => {
                     link.addEventListener('click', function (e) {
-                        trackClick(this.dataset.type, this.dataset.name, this.dataset.id);
+                        const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(searchPlace.displayName + ' ' + searchPlace.formattedAddress)}&query_place_id=${searchPlace.id}`;
+                        trackClick(this.dataset.type, this.dataset.name, this.dataset.id, searchPlace.websiteURI, mapsUrl);
                     });
                 });
             }
@@ -173,16 +174,26 @@ function renderFallbackItem(place, container, index) {
     container.appendChild(item);
 }
 
-function trackClick(type, name, id) {
+function trackClick(type, name, id, websiteUrl = null, mapsUrl = null) {
+    const mapElement = document.getElementById('map');
+    const trackingData = {
+        type: type,
+        place_name: name,
+        place_id: id,
+        page_url: window.location.href,
+        website_url: websiteUrl,
+        google_maps_url: mapsUrl,
+        // Detailed location from map attributes
+        servizio: mapElement?.dataset.servizio || '',
+        regione: mapElement?.dataset.regione || '',
+        provincia: mapElement?.dataset.provincia || '',
+        comune: mapElement?.dataset.comune || ''
+    };
+
     fetch('/api/track-click.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-            type: type,
-            place_name: name,
-            place_id: id,
-            page_url: window.location.href
-        })
+        body: JSON.stringify(trackingData)
     }).catch(err => console.error('Tracking error:', err));
 }
 
@@ -220,11 +231,12 @@ function showPlaceDetails(place, marker, listItem) {
                     </a>
                 ` : ''}
                 
-                <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.displayName + ' ' + place.formattedAddress)}&query_place_id=${place.id}" 
-                   target="_blank" 
-                   style="display: block; background: #2563eb; color: white; text-align: center; padding: 8px; border-radius: 4px; text-decoration: none; font-size: 0.9rem;">
-                   Apri in Google Maps
-                </a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.displayName + ' ' + place.formattedAddress)}&query_place_id=${place.id}" 
+                       target="_blank" 
+                       onclick="trackClick('mappe', '${place.displayName}', '${place.id}', '${place.websiteURI || ''}', 'https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(place.displayName + ' ' + place.formattedAddress)}&query_place_id=${place.id}')"
+                       style="display: block; background: #2563eb; color: white; text-align: center; padding: 8px; border-radius: 4px; text-decoration: none; font-size: 0.9rem;">
+                       Apri in Google Maps
+                    </a>
             </div>
         </div>
     `;

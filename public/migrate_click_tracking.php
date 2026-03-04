@@ -24,6 +24,29 @@ try {
     $pdo->exec($sql_click);
     echo "Table 'click_tracking' checked/created.\n";
 
+    // Add new columns to click_tracking if they don't exist
+    $newColumns = [
+        'servizio' => "VARCHAR(100) DEFAULT NULL",
+        'regione' => "VARCHAR(100) DEFAULT NULL",
+        'provincia' => "VARCHAR(100) DEFAULT NULL",
+        'comune' => "VARCHAR(100) DEFAULT NULL",
+        'website_url' => "TEXT DEFAULT NULL",
+        'google_maps_url' => "TEXT DEFAULT NULL"
+    ];
+
+    $existingColumns = [];
+    $stmt = $pdo->query("DESCRIBE click_tracking");
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $existingColumns[] = $row['Field'];
+    }
+
+    foreach ($newColumns as $name => $definition) {
+        if (!in_array($name, $existingColumns)) {
+            echo "Adding column $name to click_tracking...\n";
+            $pdo->exec("ALTER TABLE click_tracking ADD COLUMN $name $definition");
+        }
+    }
+
     // 2. Create partner_province table (needed by servizio-location-template.php)
     $sql_pp = "CREATE TABLE IF NOT EXISTS `partner_province` (
         `partner_id` int NOT NULL,

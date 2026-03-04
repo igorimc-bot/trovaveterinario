@@ -29,6 +29,12 @@ try {
         'place_id' => $placeId,
         'type' => $type,
         'page_url' => $pageUrl,
+        'website_url' => $input['website_url'] ?? null,
+        'google_maps_url' => $input['google_maps_url'] ?? null,
+        'servizio' => $input['servizio'] ?? null,
+        'regione' => $input['regione'] ?? null,
+        'provincia' => $input['provincia'] ?? null,
+        'comune' => $input['comune'] ?? null,
         'ip_address' => getClientIp(),
         'user_agent' => getUserAgent()
     ];
