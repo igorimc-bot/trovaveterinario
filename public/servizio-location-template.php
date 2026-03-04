@@ -546,10 +546,10 @@ if ($locationType === 'regione') {
     </section>
 
     <!-- Google Maps JS SDK -->
+    <script src="/assets/js/maps.js?v=<?= time() ?>"></script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key=<?= GOOGLE_MAPS_API_KEY ?>&callback=initMap&libraries=places&v=beta&loading=async"
         async defer></script>
-    <script src="/assets/js/maps.js?v=<?= time() ?>"></script>
 <?php endif; ?>
 
 <!-- Benefits Section -->
