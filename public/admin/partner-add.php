@@ -24,7 +24,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $referente = trim($_POST['referente']);
     $email = trim($_POST['email']);
     $telefono = trim($_POST['telefono']);
-    $tipologia = $_POST['tipologia'];
+    $website_url = trim($_POST['website_url']);
+    $google_maps_url = trim($_POST['google_maps_url']);
+    $descrizione_breve = trim($_POST['descrizione_breve']);
+    $logo = null;
+    $immagine_vetrina = null;
+
+    // Handle Logo Upload
+    if (isset($_FILES['logo']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = __DIR__ . '/../assets/img/partners/';
+        if (!is_dir($uploadDir))
+            mkdir($uploadDir, 0755, true);
+        $fileExtension = strtolower(pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION));
+        $logo = uniqid('logo_') . '.' . $fileExtension;
+        move_uploaded_file($_FILES['logo']['tmp_name'], $uploadDir . $logo);
+    }
+
+    // Handle Immagine Vetrina Upload
+    if (isset($_FILES['immagine_vetrina']) && $_FILES['immagine_vetrina']['error'] === UPLOAD_ERR_OK) {
+        $uploadDir = __DIR__ . '/../assets/img/partners/';
+        if (!is_dir($uploadDir))
+            mkdir($uploadDir, 0755, true);
+        $fileExtension = strtolower(pathinfo($_FILES['immagine_vetrina']['name'], PATHINFO_EXTENSION));
+        $immagine_vetrina = uniqid('vetrina_') . '.' . $fileExtension;
+        move_uploaded_file($_FILES['immagine_vetrina']['tmp_name'], $uploadDir . $immagine_vetrina);
+    }
 
     // Arrays of IDs
     $selected_servizi = $_POST['servizi'] ?? [];
@@ -38,8 +62,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $pdo->beginTransaction();
 
             // 1. Create Partner
-            $stmt = $pdo->prepare("INSERT INTO partners (nome_azienda, referente, email, telefono, tipologia, stato) VALUES (?, ?, ?, ?, ?, 'attivo')");
-            $stmt->execute([$nome, $referente, $email, $telefono, $tipologia]);
+            $stmt = $pdo->prepare("INSERT INTO partners (nome_azienda, referente, email, telefono, website_url, google_maps_url, logo, immagine_vetrina, descrizione_breve, stato) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'attivo')");
+            $stmt->execute([$nome, $referente, $email, $telefono, $website_url, $google_maps_url, $logo, $immagine_vetrina, $descrizione_breve]);
             $partnerId = $pdo->lastInsertId();
 
             // 2. Insert Services
@@ -241,7 +265,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
             <?php endif; ?>
 
-            <form method="POST" class="card">
+            <form method="POST" class="card" enctype="multipart/form-data">
 
                 <!-- 1. Dati Anagrafici -->
                 <div class="section-title">1. Dati Aziendali</div>
@@ -264,15 +288,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <label>Telefono</label>
                         <input type="text" name="telefono" placeholder="+39 ...">
                     </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group" style="flex: 2;">
+                        <label>Descrizione Breve Azienda (Intro)</label>
+                        <textarea name="descrizione_breve"
+                            style="width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; min-height: 100px;"
+                            placeholder="Breve presentazione dell'attività..."></textarea>
+                    </div>
+                </div>
+
+                <div class="form-row">
                     <div class="form-group">
-                        <label>Tipologia</label>
-                        <select name="tipologia">
-                            <option value="avvocato">Avvocato</option>
-                            <option value="perito">Perito</option>
-                            <option value="consulente_finanziario">Consulente Finanziario</option>
-                            <option value="impresa_ristrutturazioni">Impresa Ristrutturazioni</option>
-                            <option value="altro">Altro</option>
-                        </select>
+                        <label>Sito Web (URL)</label>
+                        <input type="url" name="website_url" placeholder="https://...">
+                    </div>
+                    <div class="form-group">
+                        <label>Link Google Maps (per Review stelline)</label>
+                        <input type="url" name="google_maps_url" placeholder="https://www.google.com/maps/place/...">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Logo Aziendale (Quadrato)</label>
+                        <input type="file" name="logo" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label>Immagine Vetrina (Orizzontale)</label>
+                        <input type="file" name="immagine_vetrina" accept="image/*">
                     </div>
                 </div>
 

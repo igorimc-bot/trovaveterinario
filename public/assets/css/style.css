@@ -1272,3 +1272,17 @@ textarea.error {
         transform: translateY(0);
     }
 }
+/* Google Maps Integration */
+.map-section { padding: 40px 0; background-color: #f8fafc; }
+.map-container-wrapper { display: grid; grid-template-columns: 1fr; gap: 30px; margin-top: 30px; }
+@media (min-width: 992px) { .map-container-wrapper { grid-template-columns: 2fr 1fr; } }
+#map { height: 500px; width: 100%; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+.places-list-container { max-height: 500px; overflow-y: auto; padding-right: 10px; }
+.place-item { background: #fff; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #e2e8f0; transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; }
+.place-item:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-color: #cbd5e1; }
+.place-item.active { border-color: var(--primary-color, #2563eb); background-color: #f0f9ff; }
+.place-name { font-weight: 600; font-size: 1.1rem; color: #1e293b; margin-bottom: 5px; }
+.place-address { font-size: 0.9rem; color: #64748b; margin-bottom: 8px; }
+.place-rating { display: flex; align-items: center; gap: 5px; font-size: 0.85rem; color: #f59e0b; }
+.place-rating .stars { font-weight: 700; }
+.place-rating .count { color: #94a3b8; }

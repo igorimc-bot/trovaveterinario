@@ -119,6 +119,7 @@ $servizi = $pdo->query("SELECT * FROM servizi ORDER BY ordine ASC, id DESC")->fe
                 <a href="/admin/services.php" style="color: #fff; font-weight: bold;">Gestione Servizi</a>
                 <a href="/admin/partners.php">Gestione Partner</a>
                 <a href="/admin/users.php">Gestione Utenti</a>
+                <a href="/admin/statistiche-click.php">Statistiche Click</a>
                 <a href="/admin/logout.php" style="color: #e74c3c; margin-top: 2rem;">Logout</a>
             </nav>
         </div>

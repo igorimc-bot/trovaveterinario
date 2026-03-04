@@ -201,6 +201,7 @@ $users = $pdo->query("SELECT * FROM users ORDER BY created_at DESC")->fetchAll(P
                 <a href="/admin/services.php">Gestione Servizi</a>
                 <a href="/admin/partners.php">Gestione Partner</a>
                 <a href="/admin/users.php" style="color: #fff; font-weight: bold;">Gestione Utenti</a>
+                <a href="/admin/statistiche-click.php">Statistiche Click</a>
                 <a href="/admin/logout.php" style="color: #e74c3c; margin-top: 2rem;">Logout</a>
             </nav>
         </div>

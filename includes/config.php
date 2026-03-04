@@ -40,6 +40,9 @@ define('ADMIN_EMAIL', $_ENV['ADMIN_EMAIL'] ?? 'info@trovaveterinario.it');
 define('RECAPTCHA_SITE_KEY', $_ENV['RECAPTCHA_SITE_KEY'] ?? '');
 define('RECAPTCHA_SECRET_KEY', $_ENV['RECAPTCHA_SECRET_KEY'] ?? '');
 
+// Google Maps API
+define('GOOGLE_MAPS_API_KEY', $_ENV['GOOGLE_MAPS_API_KEY'] ?? '');
+
 // Session Configuration
 define('SESSION_LIFETIME', $_ENV['SESSION_LIFETIME'] ?? 7200);
 define('SESSION_SECURE', filter_var($_ENV['SESSION_SECURE'] ?? false, FILTER_VALIDATE_BOOLEAN));

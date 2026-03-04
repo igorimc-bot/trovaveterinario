@@ -23,12 +23,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $referente = trim($_POST['referente']);
         $email = trim($_POST['email']);
         $telefono = trim($_POST['telefono']);
-        $tipologia = $_POST['tipologia'];
+        $website_url = trim($_POST['website_url']);
+        $google_maps_url = trim($_POST['google_maps_url']);
+        $descrizione_breve = trim($_POST['descrizione_breve']);
         $stato = $_POST['stato'];
+        $logo = $_POST['current_logo'] ?? null;
+        $immagine_vetrina = $_POST['current_immagine_vetrina'] ?? null;
 
-        $sql = "UPDATE partners SET nome_azienda = ?, referente = ?, email = ?, telefono = ?, tipologia = ?, stato = ? WHERE id = ?";
+        // Handle Logo Upload
+        if (isset($_FILES['logo']) && $_FILES['logo']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = __DIR__ . '/../assets/img/partners/';
+            $fileExtension = strtolower(pathinfo($_FILES['logo']['name'], PATHINFO_EXTENSION));
+            $logo = uniqid('logo_') . '.' . $fileExtension;
+            move_uploaded_file($_FILES['logo']['tmp_name'], $uploadDir . $logo);
+        }
+
+        // Handle Immagine Vetrina Upload
+        if (isset($_FILES['immagine_vetrina']) && $_FILES['immagine_vetrina']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = __DIR__ . '/../assets/img/partners/';
+            $fileExtension = strtolower(pathinfo($_FILES['immagine_vetrina']['name'], PATHINFO_EXTENSION));
+            $immagine_vetrina = uniqid('vetrina_') . '.' . $fileExtension;
+            move_uploaded_file($_FILES['immagine_vetrina']['tmp_name'], $uploadDir . $immagine_vetrina);
+        }
+
+        $sql = "UPDATE partners SET nome_azienda = ?, referente = ?, email = ?, telefono = ?, website_url = ?, google_maps_url = ?, descrizione_breve = ?, logo = ?, immagine_vetrina = ?, stato = ? WHERE id = ?";
         if ($stmt = $pdo->prepare($sql)) {
-            if ($stmt->execute([$nome, $referente, $email, $telefono, $tipologia, $stato, $partnerId])) {
+            if ($stmt->execute([$nome, $referente, $email, $telefono, $website_url, $google_maps_url, $descrizione_breve, $logo, $immagine_vetrina, $stato, $partnerId])) {
                 $message = "Partner aggiornato con successo.";
             } else {
                 $error = "Errore durante l'aggiornamento.";
@@ -130,45 +150,69 @@ $assignedLeads = $leads->fetchAll(PDO::FETCH_ASSOC);
 
             <div class="card">
                 <h3>Dati Aziendali</h3>
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="update_info">
+                    <input type="hidden" name="current_logo" value="<?= htmlspecialchars($partner['logo'] ?? '') ?>">
+                    <input type="hidden" name="current_immagine_vetrina" value="<?= htmlspecialchars($partner['immagine_vetrina'] ?? '') ?>">
+                    
                     <div class="form-row">
                         <div class="form-group">
                             <label>Nome Azienda</label>
-                            <input type="text" name="nome_azienda" value="<?= htmlspecialchars($partner['nome_azienda']) ?>" required>
+                            <input type="text" name="nome_azienda" value="<?= htmlspecialchars($partner['nome_azienda'] ?? '') ?>" required>
                         </div>
                         <div class="form-group">
                             <label>Referente</label>
-                            <input type="text" name="referente" value="<?= htmlspecialchars($partner['referente']) ?>" required>
+                            <input type="text" name="referente" value="<?= htmlspecialchars($partner['referente'] ?? '') ?>" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Email</label>
-                            <input type="email" name="email" value="<?= htmlspecialchars($partner['email']) ?>" required>
+                            <input type="email" name="email" value="<?= htmlspecialchars($partner['email'] ?? '') ?>" required>
                         </div>
                         <div class="form-group">
                             <label>Telefono</label>
-                            <input type="text" name="telefono" value="<?= htmlspecialchars($partner['telefono']) ?>" required>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label>Tipologia</label>
-                            <select name="tipologia">
-                                <option value="avvocato" <?= $partner['tipologia'] == 'avvocato' ? 'selected' : '' ?>>Avvocato</option>
-                                <option value="perito" <?= $partner['tipologia'] == 'perito' ? 'selected' : '' ?>>Perito</option>
-                                <option value="consulente_finanziario" <?= $partner['tipologia'] == 'consulente_finanziario' ? 'selected' : '' ?>>Consulente Finanziario</option>
-                                <option value="impresa_ristrutturazioni" <?= $partner['tipologia'] == 'impresa_ristrutturazioni' ? 'selected' : '' ?>>Impresa Ristrutturazioni</option>
-                                <option value="altro" <?= $partner['tipologia'] == 'altro' ? 'selected' : '' ?>>Altro</option>
-                            </select>
+                            <input type="text" name="telefono" value="<?= htmlspecialchars($partner['telefono'] ?? '') ?>" required>
                         </div>
                         <div class="form-group">
                             <label>Stato</label>
                             <select name="stato">
-                                <option value="attivo" <?= $partner['stato'] == 'attivo' ? 'selected' : '' ?>>Attivo</option>
-                                <option value="inattivo" <?= $partner['stato'] == 'inattivo' ? 'selected' : '' ?>>Inattivo</option>
+                                <option value="attivo" <?= ($partner['stato'] ?? '') == 'attivo' ? 'selected' : '' ?>>Attivo</option>
+                                <option value="inattivo" <?= ($partner['stato'] ?? '') == 'inattivo' ? 'selected' : '' ?>>Inattivo</option>
                             </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Descrizione Breve Azienda (Intro)</label>
+                            <textarea name="descrizione_breve" rows="3" style="width:100%; padding:0.5rem; border:1px solid #ddd; border-radius:4px;"><?= htmlspecialchars($partner['descrizione_breve'] ?? '') ?></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Sito Web (URL)</label>
+                            <input type="url" name="website_url" value="<?= htmlspecialchars($partner['website_url'] ?? '') ?>" placeholder="https://...">
+                        </div>
+                        <div class="form-group">
+                            <label>Link Google Maps (stelline Review)</label>
+                            <input type="url" name="google_maps_url" value="<?= htmlspecialchars($partner['google_maps_url'] ?? '') ?>" placeholder="https://www.google.com/maps/...">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Logo Aziendale (Quadrato)</label>
+                            <?php if (!empty($partner['logo'])): ?>
+                                <div style="margin-bottom: 5px;"><img src="/assets/img/partners/<?= htmlspecialchars($partner['logo']) ?>" style="max-height: 40px; border: 1px solid #eee;"></div>
+                            <?php endif; ?>
+                            <input type="file" name="logo" accept="image/*">
+                        </div>
+                        <div class="form-group">
+                            <label>Immagine Vetrina (Orizzontale)</label>
+                            <?php if (!empty($partner['immagine_vetrina'])): ?>
+                                <div style="margin-bottom: 5px;"><img src="/assets/img/partners/<?= htmlspecialchars($partner['immagine_vetrina']) ?>" style="max-height: 40px; border: 1px solid #eee;"></div>
+                            <?php endif; ?>
+                            <input type="file" name="immagine_vetrina" accept="image/*">
                         </div>
                     </div>
                     <button type="submit" class="btn-primary">Salva Modifiche</button>

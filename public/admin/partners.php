@@ -165,6 +165,7 @@ $partners = $pdo->query("SELECT * FROM partners ORDER BY created_at DESC")->fetc
                 <a href="/admin/services.php">Gestione Servizi</a>
                 <a href="/admin/partners.php" style="color: #fff; font-weight: bold;">Gestione Partner</a>
                 <a href="/admin/users.php">Gestione Utenti</a>
+                <a href="/admin/statistiche-click.php">Statistiche Click</a>
                 <a href="/admin/logout.php" style="color: #e74c3c; margin-top: 2rem;">Logout</a>
             </nav>
         </div>
@@ -189,7 +190,7 @@ $partners = $pdo->query("SELECT * FROM partners ORDER BY created_at DESC")->fetc
                             <th>Azienda</th>
                             <th>Referente</th>
                             <th>Contatti</th>
-                            <th>Tipologia</th>
+                            <th>Sito Web</th>
                             <th>Stato</th>
                             <th>Azioni</th>
                         </tr>
@@ -200,7 +201,14 @@ $partners = $pdo->query("SELECT * FROM partners ORDER BY created_at DESC")->fetc
                                 <td><?= htmlspecialchars($p['nome_azienda']) ?></td>
                                 <td><?= htmlspecialchars($p['referente']) ?></td>
                                 <td><?= htmlspecialchars($p['email']) ?><br><?= htmlspecialchars($p['telefono']) ?></td>
-                                <td><?= htmlspecialchars(ucfirst($p['tipologia'])) ?></td>
+                                <td>
+                                    <?php if ($p['website_url']): ?>
+                                        <a href="<?= htmlspecialchars($p['website_url']) ?>" target="_blank"
+                                            style="color: #3498db; font-size: 0.9rem;">Visita Sito</a>
+                                    <?php else: ?>
+                                        -
+                                    <?php endif; ?>
+                                </td>
                                 <td><?= htmlspecialchars($p['stato']) ?></td>
                                 <td>
                                     <a href="/admin/partner-detail.php?id=<?= $p['id'] ?>"

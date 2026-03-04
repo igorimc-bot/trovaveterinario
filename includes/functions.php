@@ -563,3 +563,39 @@ function getComuneWithDetails($slug)
     ';
     return db()->fetchOne($sql, [$slug]);
 }
+
+/**
+ * Search for veterinary clinics using Google Places API
+ */
+function searchGooglePlaces($query, $location)
+{
+    if (empty(GOOGLE_MAPS_API_KEY)) {
+        return [];
+    }
+
+    $fullQuery = "{$query} in {$location}";
+    $url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?' . http_build_query([
+        'query' => $fullQuery,
+        'key' => GOOGLE_MAPS_API_KEY,
+        'language' => 'it'
+    ]);
+
+    try {
+        $response = file_get_contents($url);
+        $result = json_decode($response, true);
+
+        if (isset($result['status']) && $result['status'] === 'OK') {
+            return $result['results'];
+        }
+
+        if (isset($result['status']) && $result['status'] !== 'ZERO_RESULTS') {
+            logError("Google Places API error: " . $result['status'] . (isset($result['error_message']) ? " - " . $result['error_message'] : ""));
+        }
+
+        return [];
+
+    } catch (Exception $e) {
+        logError("Google Places API request failed: " . $e->getMessage());
+        return [];
+    }
+}
