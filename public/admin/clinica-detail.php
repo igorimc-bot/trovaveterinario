@@ -189,6 +189,8 @@ $placeName = $clinic['place_name'] ?? 'Clinica Sconosciuta';
             <h3>Admin Panel</h3>
             <nav>
                 <a href="/admin">Dashboard</a>
+                <a href="/admin/statistiche-click.php">Statistiche Click</a>
+                <a href="/admin/archivio-click.php">Archivio Click</a>
                 <a href="/admin/statistiche-click.php">← Torna alle Statistiche</a>
             </nav>
         </div>
