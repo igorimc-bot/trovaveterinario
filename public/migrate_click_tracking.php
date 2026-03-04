@@ -90,6 +90,13 @@ try {
     $pdo->exec($sql_notes);
     echo "Table 'clinic_notes' checked/created.\n";
 
+    // 5. Add status column to clinic_notes if missing
+    $checkColumn = $pdo->query("SHOW COLUMNS FROM `clinic_notes` LIKE 'status'")->fetch();
+    if (!$checkColumn) {
+        $pdo->exec("ALTER TABLE `clinic_notes` ADD `status` enum('non_gestito','gestito','contattato','partner') COLLATE utf8mb4_unicode_ci DEFAULT 'non_gestito' AFTER `place_name` ");
+        echo "Column 'status' added to 'clinic_notes'.\n";
+    }
+
     echo "Migration completed successfully.\n";
 
 } catch (Exception $e) {
