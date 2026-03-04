@@ -20,9 +20,9 @@ $clicksSql = "SELECT * FROM click_tracking ORDER BY created_at DESC LIMIT 100";
 $clicks = $pdo->query($clicksSql)->fetchAll(PDO::FETCH_ASSOC);
 
 // Top Places
-$topSql = "SELECT place_name, type, COUNT(*) as count 
+$topSql = "SELECT place_name, place_id, type, COUNT(*) as count 
            FROM click_tracking 
-           GROUP BY place_name, type 
+           GROUP BY place_id, type 
            ORDER BY count DESC 
            LIMIT 10";
 $topPlaces = $pdo->query($topSql)->fetchAll(PDO::FETCH_ASSOC);
@@ -180,7 +180,10 @@ $topPlaces = $pdo->query($topSql)->fetchAll(PDO::FETCH_ASSOC);
                                     <tr>
                                         <td><?= date('d/m/y H:i', strtotime($click['created_at'])) ?></td>
                                         <td>
-                                            <strong><?= htmlspecialchars($click['place_name']) ?></strong>
+                                            <a href="/admin/clinica-detail.php?place_id=<?= urlencode($click['place_id']) ?>"
+                                                style="text-decoration: none; color: inherit; font-weight: bold;">
+                                                <?= htmlspecialchars($click['place_name']) ?>
+                                            </a>
                                         </td>
                                         <td>
                                             <span
@@ -228,7 +231,10 @@ $topPlaces = $pdo->query($topSql)->fetchAll(PDO::FETCH_ASSOC);
                             <?php foreach ($topPlaces as $place): ?>
                                 <tr>
                                     <td>
-                                        <?= htmlspecialchars($place['place_name']) ?>
+                                        <a href="/admin/clinica-detail.php?place_id=<?= urlencode($place['place_id']) ?>"
+                                            style="font-weight: bold; text-decoration: none; color: #3498db;">
+                                            <?= htmlspecialchars($place['place_name']) ?>
+                                        </a>
                                         <br><small class="text-muted"><?= ucfirst($place['type']) ?></small>
                                     </td>
                                     <td style="font-weight: bold;"><?= $place['count'] ?></td>

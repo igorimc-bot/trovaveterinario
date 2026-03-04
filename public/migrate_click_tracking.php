@@ -73,6 +73,22 @@ try {
     $pdo->exec($sql_pr);
     echo "Table 'partner_regioni' checked/created.\n";
 
+    // 4. Create clinic_notes table
+    $sql_notes = "CREATE TABLE IF NOT EXISTS `clinic_notes` (
+        `id` int NOT NULL AUTO_INCREMENT,
+        `place_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+        `note` text COLLATE utf8mb4_unicode_ci NOT NULL,
+        `user_id` int DEFAULT NULL,
+        `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        `place_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+        PRIMARY KEY (`id`),
+        KEY `idx_place` (`place_id`),
+        CONSTRAINT `fk_notes_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;";
+
+    $pdo->exec($sql_notes);
+    echo "Table 'clinic_notes' checked/created.\n";
+
     echo "Migration completed successfully.\n";
 
 } catch (Exception $e) {
