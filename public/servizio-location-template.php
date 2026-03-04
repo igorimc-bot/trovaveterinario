@@ -516,7 +516,7 @@ if ($locationType === 'regione') {
 </style>
 
 <!-- Google Maps & Places Results -->
-<?php if (!empty(GOOGLE_MAPS_API_KEY)): ?>
+<?php if (defined('GOOGLE_MAPS_API_KEY') && GOOGLE_MAPS_API_KEY !== ''): ?>
     <section class="map-section">
         <div class="container">
             <div class="section-header text-center">
