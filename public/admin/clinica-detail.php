@@ -21,7 +21,7 @@ $pdo = db()->getConnection();
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['note'])) {
     $note = trim($_POST['note']);
     $placeName = $_POST['place_name'] ?? '';
-    
+
     if (!empty($note)) {
         $stmt = $pdo->prepare("INSERT INTO clinic_notes (place_id, place_name, note, user_id) VALUES (?, ?, ?, ?)");
         $stmt->execute([$placeId, $placeName, $note, $_SESSION['user_id']]);
@@ -63,37 +63,123 @@ $placeName = $clinic['place_name'] ?? 'Clinica Sconosciuta';
 ?>
 <!DOCTYPE html>
 <html lang="it">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dettaglio Clinica - <?= htmlspecialchars($placeName) ?></title>
     <link rel="stylesheet" href="/assets/css/style.css">
     <style>
-        .admin-layout { display: flex; min-height: 100vh; }
-        .sidebar { width: 250px; background: #2c3e50; color: #ecf0f1; padding: 1rem; }
-        .sidebar a { color: #bdc3c7; text-decoration: none; display: block; padding: 0.5rem 0; }
-        .sidebar a:hover { color: #fff; }
-        .content { flex: 1; padding: 2rem; background: #f8f9fa; }
-        
-        .card { background: white; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 2rem; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
-        th, td { text-align: left; padding: 0.8rem; border-bottom: 1px solid #eee; font-size: 0.9rem; }
-        th { background: #f9f9f9; }
+        .admin-layout {
+            display: flex;
+            min-height: 100vh;
+        }
 
-        .note-item { padding: 1rem; border-bottom: 1px solid #eee; }
-        .note-meta { font-size: 0.8rem; color: #7f8c8d; margin-bottom: 0.3rem; }
-        .note-text { color: #2c3e50; white-space: pre-wrap; }
-        
-        .form-group { margin-bottom: 1rem; }
-        textarea { width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px; min-height: 100px; }
-        .btn { padding: 0.6rem 1.2rem; background: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; }
-        .btn:hover { background: #2980b9; }
+        .sidebar {
+            width: 250px;
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 1rem;
+        }
 
-        .badge { padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; }
+        .sidebar a {
+            color: #bdc3c7;
+            text-decoration: none;
+            display: block;
+            padding: 0.5rem 0;
+        }
+
+        .sidebar a:hover {
+            color: #fff;
+        }
+
+        .content {
+            flex: 1;
+            padding: 2rem;
+            background: #f8f9fa;
+        }
+
+        .card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 0.8rem;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+
+        th {
+            background: #f9f9f9;
+        }
+
+        .note-item {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .note-meta {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            margin-bottom: 0.3rem;
+        }
+
+        .note-text {
+            color: #2c3e50;
+            white-space: pre-wrap;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-height: 100px;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+        }
+
+        .badge {
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
     </style>
 </head>
+
 <body>
     <div class="admin-layout">
         <div class="sidebar">
@@ -112,10 +198,12 @@ $placeName = $clinic['place_name'] ?? 'Clinica Sconosciuta';
                 </div>
                 <div style="display: flex; gap: 10px;">
                     <?php if ($clinic['website_url'] ?? false): ?>
-                        <a href="<?= htmlspecialchars($clinic['website_url']) ?>" target="_blank" class="btn" style="background: #27ae60;">Visita Sito</a>
+                        <a href="<?= htmlspecialchars($clinic['website_url']) ?>" target="_blank" class="btn"
+                            style="background: #27ae60;">Visita Sito</a>
                     <?php endif; ?>
                     <?php if ($clinic['google_maps_url'] ?? false): ?>
-                        <a href="<?= htmlspecialchars($clinic['google_maps_url']) ?>" target="_blank" class="btn" style="background: #e67e22;">Apri Mappa</a>
+                        <a href="<?= htmlspecialchars($clinic['google_maps_url']) ?>" target="_blank" class="btn"
+                            style="background: #e67e22;">Apri Mappa</a>
                     <?php endif; ?>
                 </div>
             </div>
@@ -138,13 +226,15 @@ $placeName = $clinic['place_name'] ?? 'Clinica Sconosciuta';
                                     <tr>
                                         <td><?= date('d/m/y H:i', strtotime($click['created_at'])) ?></td>
                                         <td>
-                                            <span class="badge" style="background: <?= $click['type'] == 'telefono' ? '#e1f5fe' : ($click['type'] == 'mappe' ? '#fff9c4' : '#e8f5e9') ?>;">
+                                            <span class="badge"
+                                                style="background: <?= $click['type'] == 'telefono' ? '#e1f5fe' : ($click['type'] == 'mappe' ? '#fff9c4' : '#e8f5e9') ?>;">
                                                 <?= ucfirst($click['type']) ?>
                                             </span>
                                         </td>
                                         <td>
-                                            <small><?= htmlspecialchars($click['servizio']) ?></small><br>
-                                            <small class="text-muted"><?= htmlspecialchars($click['comune'] ?: $click['provincia'] ?: $click['regione']) ?></small>
+                                            <small><?= htmlspecialchars($click['servizio'] ?? '') ?></small><br>
+                                            <small
+                                                class="text-muted"><?= htmlspecialchars(($click['comune'] ?: $click['provincia'] ?: $click['regione']) ?? '') ?></small>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -156,12 +246,14 @@ $placeName = $clinic['place_name'] ?? 'Clinica Sconosciuta';
                 <!-- Internal Notes -->
                 <div class="card">
                     <h2>Note Interne</h2>
-                    
-                    <form method="POST" style="margin-bottom: 2rem; background: #fdfdfd; padding: 1rem; border: 1px solid #eee; border-radius: 4px;">
+
+                    <form method="POST"
+                        style="margin-bottom: 2rem; background: #fdfdfd; padding: 1rem; border: 1px solid #eee; border-radius: 4px;">
                         <input type="hidden" name="place_name" value="<?= htmlspecialchars($placeName) ?>">
                         <div class="form-group">
                             <label>Aggiungi una nota:</label>
-                            <textarea name="note" placeholder="Inserisci qui aggiornamenti o note sulla clinica..."></textarea>
+                            <textarea name="note"
+                                placeholder="Inserisci qui aggiornamenti o note sulla clinica..."></textarea>
                         </div>
                         <button type="submit" class="btn">Salva Nota</button>
                     </form>
@@ -173,7 +265,7 @@ $placeName = $clinic['place_name'] ?? 'Clinica Sconosciuta';
                         <?php foreach ($notes as $note): ?>
                             <div class="note-item">
                                 <div class="note-meta">
-                                    <strong><?= htmlspecialchars($note['user_name'] ?: 'Sistema') ?></strong> • 
+                                    <strong><?= htmlspecialchars($note['user_name'] ?: 'Sistema') ?></strong> •
                                     <?= date('d/m/Y H:i', strtotime($note['created_at'])) ?>
                                 </div>
                                 <div class="note-text"><?= htmlspecialchars($note['note']) ?></div>
@@ -185,4 +277,5 @@ $placeName = $clinic['place_name'] ?? 'Clinica Sconosciuta';
         </div>
     </div>
 </body>
+
 </html>
