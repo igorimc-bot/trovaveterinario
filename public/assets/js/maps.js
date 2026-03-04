@@ -181,13 +181,13 @@ function trackClick(type, name, id, websiteUrl = null, mapsUrl = null) {
         place_name: name,
         place_id: id,
         page_url: window.location.href,
-        website_url: websiteUrl,
-        google_maps_url: mapsUrl,
+        website_url: websiteUrl || '',
+        google_maps_url: mapsUrl || '',
         // Detailed location from map attributes
-        servizio: mapElement?.dataset.servizio || '',
-        regione: mapElement?.dataset.regione || '',
-        provincia: mapElement?.dataset.provincia || '',
-        comune: mapElement?.dataset.comune || ''
+        servizio: mapElement?.dataset?.servizio || '',
+        regione: mapElement?.dataset?.regione || '',
+        provincia: mapElement?.dataset?.provincia || '',
+        comune: mapElement?.dataset?.comune || ''
     };
 
     fetch('/api/track-click.php', {

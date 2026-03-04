@@ -81,6 +81,7 @@ try {
         `user_id` int DEFAULT NULL,
         `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
         `place_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+        `status` enum('non_gestito','gestito','contattato','partner') COLLATE utf8mb4_unicode_ci DEFAULT 'non_gestito',
         PRIMARY KEY (`id`),
         KEY `idx_place` (`place_id`),
         CONSTRAINT `fk_notes_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL

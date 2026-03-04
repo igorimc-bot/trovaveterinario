@@ -19,13 +19,26 @@ $stats = $pdo->query($statsSql)->fetchAll(PDO::FETCH_KEY_PAIR);
 $clicksSql = "SELECT * FROM click_tracking ORDER BY created_at DESC LIMIT 100";
 $clicks = $pdo->query($clicksSql)->fetchAll(PDO::FETCH_ASSOC);
 
-// Top Places
-$topSql = "SELECT place_name, place_id, type, COUNT(*) as count 
-           FROM click_tracking 
-           GROUP BY place_id, type 
+// Top 50 Places with Status
+$topSql = "SELECT ct.place_name, ct.place_id, ct.type, COUNT(*) as count,
+           (SELECT status FROM clinic_notes WHERE place_id = ct.place_id ORDER BY created_at DESC LIMIT 1) as last_status
+           FROM click_tracking ct
+           GROUP BY ct.place_id, ct.type 
            ORDER BY count DESC 
-           LIMIT 10";
+           LIMIT 50";
 $topPlaces = $pdo->query($topSql)->fetchAll(PDO::FETCH_ASSOC);
+
+function getStatusBadge($status)
+{
+    $badges = [
+        'non_gestito' => ['text' => 'Non Gestito', 'color' => '#95a5a6'],
+        'gestito' => ['text' => 'Gestito', 'color' => '#3498db'],
+        'contattato' => ['text' => 'Contattato', 'color' => '#f1c40f'],
+        'partner' => ['text' => 'Partner', 'color' => '#2ecc71']
+    ];
+    $s = $badges[$status] ?? $badges['non_gestito'];
+    return "<span class='badge' style='background: {$s['color']}; color: white;'>{$s['text']}</span>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="it">
@@ -219,29 +232,35 @@ $topPlaces = $pdo->query($topSql)->fetchAll(PDO::FETCH_ASSOC);
                 </div>
 
                 <div class="stats-box">
-                    <h2>Top 10 Cliniche</h2>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Clinica</th>
-                                <th>Click</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($topPlaces as $place): ?>
+                    <h2>Top 50 Cliniche</h2>
+                    <div style="max-height: 800px; overflow-y: auto;">
+                        <table>
+                            <thead>
                                 <tr>
-                                    <td>
-                                        <a href="/admin/clinica-detail.php?place_id=<?= urlencode($place['place_id']) ?>"
-                                            style="font-weight: bold; text-decoration: none; color: #3498db;">
-                                            <?= htmlspecialchars($place['place_name']) ?>
-                                        </a>
-                                        <br><small class="text-muted"><?= ucfirst($place['type']) ?></small>
-                                    </td>
-                                    <td style="font-weight: bold;"><?= $place['count'] ?></td>
+                                    <th>Clinica</th>
+                                    <th>Stato</th>
+                                    <th>Click</th>
                                 </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($topPlaces as $place): ?>
+                                    <tr>
+                                        <td>
+                                            <a href="/admin/clinica-detail.php?place_id=<?= urlencode($place['place_id']) ?>"
+                                                style="font-weight: bold; text-decoration: none; color: #3498db;">
+                                                <?= htmlspecialchars($place['place_name']) ?>
+                                            </a>
+                                            <br><small class="text-muted"><?= ucfirst($place['type']) ?></small>
+                                        </td>
+                                        <td>
+                                            <?= getStatusBadge($place['last_status'] ?: 'non_gestito') ?>
+                                        </td>
+                                        <td style="font-weight: bold;"><?= $place['count'] ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

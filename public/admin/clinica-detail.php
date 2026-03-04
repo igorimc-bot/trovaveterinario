@@ -17,28 +17,31 @@ if (empty($placeId)) {
 
 $pdo = db()->getConnection();
 
-// Handle Note Submission
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['note'])) {
-    $note = trim($_POST['note']);
+// Handle Note/Status Submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && (isset($_POST['note']) || isset($_POST['status']))) {
+    $note = trim($_POST['note'] ?? '');
+    $status = $_POST['status'] ?? 'non_gestito';
     $placeName = $_POST['place_name'] ?? '';
 
-    if (!empty($note)) {
-        $stmt = $pdo->prepare("INSERT INTO clinic_notes (place_id, place_name, note, user_id) VALUES (?, ?, ?, ?)");
-        $stmt->execute([$placeId, $placeName, $note, $_SESSION['user_id']]);
-        header("Location: /admin/clinica-detail.php?place_id=" . urlencode($placeId) . "&success=1");
-        exit;
-    }
+    $stmt = $pdo->prepare("INSERT INTO clinic_notes (place_id, place_name, note, status, user_id) VALUES (?, ?, ?, ?, ?)");
+    $stmt->execute([$placeId, $placeName, $note, $status, $_SESSION['user_id']]);
+    header("Location: /admin/clinica-detail.php?place_id=" . urlencode($placeId) . "&success=1");
+    exit;
 }
 
-// Fetch Clinic Info (from last click)
-$infoSql = "SELECT place_name, website_url, google_maps_url FROM click_tracking WHERE place_id = ? ORDER BY created_at DESC LIMIT 1";
+// Fetch Clinic Info (from last click) + current status
+$infoSql = "SELECT ct.place_name, ct.website_url, ct.google_maps_url,
+           (SELECT status FROM clinic_notes WHERE place_id = ct.place_id ORDER BY created_at DESC LIMIT 1) as current_status
+           FROM click_tracking ct 
+           WHERE ct.place_id = ? 
+           ORDER BY ct.created_at DESC LIMIT 1";
 $stmt = $pdo->prepare($infoSql);
 $stmt->execute([$placeId]);
 $clinic = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if (!$clinic) {
+if (!$clinic || !$clinic['place_name']) {
     // Try to get from notes if no clicks (edge case)
-    $stmt = $pdo->prepare("SELECT place_name FROM clinic_notes WHERE place_id = ? LIMIT 1");
+    $stmt = $pdo->prepare("SELECT place_name, status as current_status FROM clinic_notes WHERE place_id = ? ORDER BY created_at DESC LIMIT 1");
     $stmt->execute([$placeId]);
     $clinic = $stmt->fetch(PDO::FETCH_ASSOC);
 }
@@ -243,32 +246,51 @@ $placeName = $clinic['place_name'] ?? 'Clinica Sconosciuta';
                     </div>
                 </div>
 
-                <!-- Internal Notes -->
+                <!-- Internal Notes & Status -->
                 <div class="card">
-                    <h2>Note Interne</h2>
+                    <h2>Gestione Clinica</h2>
 
                     <form method="POST"
-                        style="margin-bottom: 2rem; background: #fdfdfd; padding: 1rem; border: 1px solid #eee; border-radius: 4px;">
+                        style="margin-bottom: 2rem; background: #fdfdfd; padding: 1.5rem; border: 1px solid #eee; border-radius: 4px;">
                         <input type="hidden" name="place_name" value="<?= htmlspecialchars($placeName) ?>">
+
                         <div class="form-group">
-                            <label>Aggiungi una nota:</label>
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Stato
+                                Attuale:</label>
+                            <select name="status"
+                                style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 1rem;">
+                                <option value="non_gestito" <?= ($clinic['current_status'] ?? '') == 'non_gestito' ? 'selected' : '' ?>>Non Gestito</option>
+                                <option value="gestito" <?= ($clinic['current_status'] ?? '') == 'gestito' ? 'selected' : '' ?>>Gestito</option>
+                                <option value="contattato" <?= ($clinic['current_status'] ?? '') == 'contattato' ? 'selected' : '' ?>>Contattato</option>
+                                <option value="partner" <?= ($clinic['current_status'] ?? '') == 'partner' ? 'selected' : '' ?>>Partner</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Aggiungi Nota
+                                (opzionale):</label>
                             <textarea name="note"
                                 placeholder="Inserisci qui aggiornamenti o note sulla clinica..."></textarea>
                         </div>
-                        <button type="submit" class="btn">Salva Nota</button>
+                        <button type="submit" class="btn">Aggiorna Stato e Salva Nota</button>
                     </form>
 
                     <div class="notes-list">
+                        <h3>Cronologia Gestione</h3>
                         <?php if (empty($notes)): ?>
-                            <p class="text-muted">Nessuna nota presente.</p>
+                            <p class="text-muted">Nessuna attività registrata.</p>
                         <?php endif; ?>
                         <?php foreach ($notes as $note): ?>
                             <div class="note-item">
                                 <div class="note-meta">
                                     <strong><?= htmlspecialchars($note['user_name'] ?: 'Sistema') ?></strong> •
                                     <?= date('d/m/Y H:i', strtotime($note['created_at'])) ?>
+                                    • Stato: <span class="badge"
+                                        style="background: #eee; color: #333;"><?= ucfirst(str_replace('_', ' ', $note['status'])) ?></span>
                                 </div>
-                                <div class="note-text"><?= htmlspecialchars($note['note']) ?></div>
+                                <?php if ($note['note']): ?>
+                                    <div class="note-text"><?= htmlspecialchars($note['note']) ?></div>
+                                <?php endif; ?>
                             </div>
                         <?php endforeach; ?>
                     </div>
