@@ -364,15 +364,69 @@ if ($locationType === 'regione') {
         border-radius: 20px;
     }
 
-    .partner-card-new h4 { font-size: 1.35rem; font-weight: 700; color: #1e293b; margin-bottom: 10px; line-height: 1.3; }
-    .partner-intro { font-size: 0.9rem; color: #64748b; line-height: 1.5; margin-bottom: 25px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-    
-    .card-actions-new { display: flex; gap: 8px; width: 100%; flex-wrap: wrap; }
-    .partner-link { flex: 1; min-width: 80px; padding: 10px; border-radius: 10px; font-weight: 700; font-size: 0.8rem; text-decoration: none; transition: all 0.3s; display: flex; align-items: center; justify-content: center; gap: 6px; }
-    .partner-link.call { background: #2563eb; color: white; border: none; }
-    .partner-link.site { background: #ffffff; color: #475569; border: 2px solid #e2e8f0; }
-    .partner-link.maps { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
-    .partner-link:hover { opacity: 0.9; transform: scale(1.02); }
+    .partner-card-new h4 {
+        font-size: 1.35rem;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 10px;
+        line-height: 1.3;
+    }
+
+    .partner-intro {
+        font-size: 0.9rem;
+        color: #64748b;
+        line-height: 1.5;
+        margin-bottom: 25px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    .card-actions-new {
+        display: flex;
+        gap: 8px;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .partner-link {
+        flex: 1;
+        min-width: 80px;
+        padding: 10px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 0.8rem;
+        text-decoration: none;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .partner-link.call {
+        background: #2563eb;
+        color: white;
+        border: none;
+    }
+
+    .partner-link.site {
+        background: #ffffff;
+        color: #475569;
+        border: 2px solid #e2e8f0;
+    }
+
+    .partner-link.maps {
+        background: #fef3c7;
+        color: #92400e;
+        border: 1px solid #fde68a;
+    }
+
+    .partner-link:hover {
+        opacity: 0.9;
+        transform: scale(1.02);
+    }
 
     .premium-invite-banner-new.light-theme {
         background: #ffffff;
@@ -492,10 +546,9 @@ if ($locationType === 'regione') {
     </section>
 
     <!-- Google Maps JS SDK -->
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=<?= GOOGLE_MAPS_API_KEY ?>&callback=initMap&libraries=places&v=beta&loading=async"
-        async defer></script>
     <script src="/assets/js/maps.js?v=<?= time() ?>"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<?= GOOGLE_MAPS_API_KEY ?>& callback=initMap & libraries=places & v=beta & loading=async"
+            async defe r></script>
 <?php endif; ?>
 
 <!-- Benefits Section -->
